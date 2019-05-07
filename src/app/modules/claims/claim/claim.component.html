@@ -1,0 +1,186 @@
+<header [ngSwitch]="claim.state">
+  <ng-container *ngSwitchCase="CLAIM_STATES_ENUM.START">
+    <button
+        mat-raised-button
+        color="accent"
+        (click)="error()"
+    >
+      на доработку
+    </button>
+
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="success()"
+    >
+      завершить
+    </button>
+
+    <button
+        mat-raised-button
+        color="warn"
+        (click)="reject()"
+    >
+      отвергнуть
+    </button>
+
+  </ng-container>
+
+  <div
+      *ngSwitchCase="CLAIM_STATES_ENUM.REJECT"
+      class="message reject"
+  >
+    <mat-icon class="icon">close</mat-icon>
+    Заяка отвергнута.
+  </div>
+
+  <div
+      *ngSwitchCase="CLAIM_STATES_ENUM.SUCCESS"
+      class="message success"
+  >
+    <mat-icon class="icon">check</mat-icon>
+    Заяка завершена.
+  </div>
+
+  <div
+      *ngSwitchCase="CLAIM_STATES_ENUM.ERROR"
+      class="message error"
+  >
+    <mat-icon class="icon">feedback</mat-icon>
+    Заяка на доработке.
+  </div>
+
+</header>
+
+<section>
+  <mat-expansion-panel
+      [expanded]="true"
+      class="panel"
+  >
+    <mat-expansion-panel-header>
+      <div class="label">Заявка</div>
+    </mat-expansion-panel-header>
+
+    <div class="data-row">
+      <div class="label">
+        Вид операции:
+      </div>
+      <div class="value">
+        {{ claim.serviceType }}
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="label">
+        Перевозчик:
+      </div>
+      <div class="value">
+        {{ claim.carrier }}
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="label">
+        Плательщик:
+      </div>
+      <div class="value">
+        {{ claim.servicePayer }}
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="label">
+        Пункт пропуска:
+      </div>
+      <div class="value">
+        {{ claim.checkpoint }}
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="label">
+        Гос. номер тягача:
+      </div>
+      <div class="value">
+        {{ claim.numberCar }}
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="label">
+        Гос. номер прицепа:
+      </div>
+      <div class="value">
+        {{ claim.numberTrailer }}
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="label">
+        Комментарий:
+      </div>
+      <div class="value">
+        {{ claim.comment }}
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+      [expanded]="true"
+      class="panel"
+  >
+    <mat-expansion-panel-header>
+      <div class="label">Водитель</div>
+    </mat-expansion-panel-header>
+
+    <div class="data-row">
+      <div class="label">
+        Фамилия Имя Отчество:
+      </div>
+      <div class="value">
+        {{ claim.driver.surname + ' ' + claim.driver.name + ' ' + claim.driver.patronymic }}
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="label">
+        Паспорт:
+      </div>
+      <div class="value">
+        {{ claim.driver.passportSeries + ' ' + claim.driver.passportNumber}}, дата выдачи {{ claim.driver.passportDate }}
+      </div>
+    </div>
+
+    <div class="data-row">
+      <div class="label">
+        Телефон:
+      </div>
+      <div class="value">
+        {{ claim.driver.phone }}
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel
+      [expanded]="true"
+      class="panel"
+  >
+    <mat-expansion-panel-header>
+      <div class="label">Фотографии документов</div>
+    </mat-expansion-panel-header>
+
+    <a
+        *ngFor="let document of claim.documentsPhotos"
+        class="document"
+        [attr.href]="document"
+        target="_blank"
+    >
+      <img [attr.src]="document"/>
+    </a>
+  </mat-expansion-panel>
+
+</section>
+
+<dc-loader-with-backdrop *ngIf="loading"></dc-loader-with-backdrop>

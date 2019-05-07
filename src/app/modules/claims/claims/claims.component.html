@@ -1,0 +1,45 @@
+<section class="filters">
+  <dc-claim-filters
+      [filters]="filters"
+      (changeFilters)="setFilters($event)"
+  ></dc-claim-filters>
+</section>
+
+<section class="table">
+  <dc-table-with-paginator
+      *ngIf="paginatorSource"
+      [columns]="columns"
+      [dataSource]="paginatorSource"
+  >
+    <ng-container *ngIf="actionsTemplate">
+      <ng-template
+          #actions
+          let-item="item"
+      >
+        <ng-container
+            [ngTemplateOutlet]="actionsTemplate"
+            [ngTemplateOutletContext]="{ claim: item }"
+        ></ng-container>
+      </ng-template>
+    </ng-container>
+
+  </dc-table-with-paginator>
+</section>
+
+<ng-template
+    #timestampTemplate
+    let-item="item"
+>
+  <div class="date">
+    {{ item | date:'dd.MM.yyyy' }}
+  </div>
+</ng-template>
+
+<ng-template
+    #driverTemplate
+    let-item="item"
+>
+  <div class="date">
+    {{ item.surname + ' ' + item.name + ' ' + item.patronymic }}
+  </div>
+</ng-template>

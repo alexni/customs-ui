@@ -1,0 +1,17 @@
+<header>
+  <div class="author">
+    <ng-container *ngIf="message.broker; else driverNameTemplate;">
+      Брокер: {{ message!.broker.name }}
+    </ng-container>
+    <ng-template #driverNameTemplate>
+      Водитель
+    </ng-template>
+  </div>
+  <div class="date">
+    {{ message.timestamp | date:'dd.MM.yyyy HH:mm:ss' }}
+  </div>
+</header>
+
+<section class="text">
+  {{ message.text }}
+</section>

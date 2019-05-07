@@ -1,0 +1,31 @@
+$button-size: 44px;
+
+:host {
+  $padding-top: 5px;
+
+  display: flex;
+  width: 100%;
+  height: calc(100% - #{$padding-top});
+  min-height: 50px;
+  padding-top: $padding-top;
+  position: relative;
+}
+
+textarea {
+  $padding: 5px;
+
+  width: calc(100% - #{$button-size + 10px + $padding *2});
+  height: calc(100% - #{$padding * 2});
+  padding: $padding;
+  border: 0;
+  resize: none;
+  outline: none;
+}
+
+.send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $button-size;
+  height: 100%;
+}

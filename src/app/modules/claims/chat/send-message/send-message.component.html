@@ -1,0 +1,17 @@
+<textarea
+    class="control"
+    placeholder="Введите сообщение"
+    [formControl]="control"
+></textarea>
+
+<div class="send">
+  <button
+    mat-mini-fab
+    color="primary"
+    class="send-button"
+    [disabled]="control.invalid || sending"
+    (click)="sendMessage()"
+  >
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>

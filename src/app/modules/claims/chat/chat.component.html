@@ -1,0 +1,38 @@
+<header>
+  Чат с водителем
+</header>
+
+<section>
+  <as-split
+      [useTransition]="true"
+      direction="vertical"
+  >
+    <as-split-area
+        [size]="75"
+        [order]="0"
+        #messages
+    >
+      <div class="messages">
+        <div
+            *ngFor="let message of messagesList?.messages"
+            class="message"
+        >
+          <dc-message [message]="message"></dc-message>
+        </div>
+      </div>
+    </as-split-area>
+
+    <as-split-area
+        class="send-message"
+        [size]="25"
+        [order]="1"
+    >
+      <dc-send-message
+          [claimId]="claimId"
+          (messageSended)="restartPooling(true)"
+      ></dc-send-message>
+    </as-split-area>
+  </as-split>
+</section>
+
+<dc-loader-with-backdrop *ngIf="loading"></dc-loader-with-backdrop>

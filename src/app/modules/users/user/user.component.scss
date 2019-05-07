@@ -1,0 +1,50 @@
+@import '../../../ui/common/styles/colors';
+
+$header-height: 40px;
+$footer-height: 60px;
+
+:host {
+  $padding: 10px;
+
+  display: block;
+  width: 600px;
+  height: calc(100% - #{$padding * 2});
+  padding: $padding;
+}
+
+header {
+  $border-bottom-height: 1px;
+
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  height: $header-height - $border-bottom-height;
+  border-bottom: $border-bottom-height solid $border-color;
+}
+
+section {
+  height: calc(100% - #{$header-height + $footer-height});
+  overflow: auto;
+
+  .field {
+    margin: 15px 0;
+  }
+}
+
+footer {
+  $border-top-height: 1px;
+
+  display: flex;
+  height: $footer-height - $border-top-height;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: $border-top-height solid $border-color;
+
+  button {
+    margin-right: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.item {
+  display: flex;
+  align-items: center;
+
+  &:last-child {
+    margin-left: 30px;
+  }
+
+  .title {
+    text-decoration: none;
+    color: #fff;
+    margin-left: 5px;
+    font-weight: 400;
+  }
+}
+
+.toolbar {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,17 @@
+<mat-form-field
+  floatLabel="never"
+  class="mat-form-field-full-width"
+>
+  <mat-select
+    matInput
+    [formControl]="control"
+    [placeholder]="placeholder"
+  >
+    <mat-option
+      *ngFor="let option of options"
+      [value]="option.value"
+    >
+      <ng-container [ngTemplateOutlet]="option.templateRef"></ng-container>
+    </mat-option>
+  </mat-select>
+</mat-form-field>

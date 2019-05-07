@@ -1,0 +1,28 @@
+<section class="table">
+  <dc-table
+      [columns]="columns"
+      [items]="list?.items"
+  >
+    <ng-container *ngIf="actionsTemplate">
+      <ng-template
+          #actions
+          let-item="item"
+      >
+        <ng-container
+            [ngTemplateOutlet]="actionsTemplate"
+            [ngTemplateOutletContext]="{ item: item }"
+        ></ng-container>
+      </ng-template>
+    </ng-container>
+  </dc-table>
+</section>
+
+<footer class="paginator">
+  <dc-paginator
+      [length]="list?.total"
+      [pageSize]="pageSize"
+      (changePageData)="setPageData($event)"
+  ></dc-paginator>
+</footer>
+
+<dc-loader-with-backdrop *ngIf="loading"></dc-loader-with-backdrop>

@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  align-items: flex-start;
+}
+
+.icon {
+  display: flex;
+  width: 32px;
+
+  mat-icon {
+    position: relative;
+    top: -4px;
+  }
+}

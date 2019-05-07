@@ -1,0 +1,29 @@
+<dc-vertical-form-field class="field">
+  <dc-form-field-label
+    label="Логин"
+    [required]="true"
+  ></dc-form-field-label>
+
+  <ng-container sqFormFieldControl>
+    <dc-text-control [formControl]="control"></dc-text-control>
+  </ng-container>
+
+  <ng-container sqFormFieldErrors>
+    <dc-control-error *ngIf="hasError('required')">
+      Логин обязателен для заполнения.
+    </dc-control-error>
+
+    <dc-control-error *ngIf="hasError('minlength') || hasError('maxlength')">
+      Длина логина должна быть в диапазоне [{{ LOGIN_MIN_LENGTH }}, {{ LOGIN_MAX_LENGTH }}].
+    </dc-control-error>
+
+    <dc-control-error *ngIf="hasError('pattern')">
+      Логин должен состоять из букв латинского алфавита, цифр и символов: "-", "@", "_", ".".
+      Логин должен начинаться с буквы.
+    </dc-control-error>
+
+    <dc-control-error *ngFor="let error of outerErrors">
+      {{ error }}
+    </dc-control-error>
+  </ng-container>
+</dc-vertical-form-field>

@@ -1,0 +1,30 @@
+<mat-card [formGroup]="form">
+  <header>
+    Введите логин и пароль
+  </header>
+  <section>
+    <div class="field">
+      <dc-user-login-control formControlName="login"></dc-user-login-control>
+    </div>
+
+    <div class="field">
+      <dc-user-password-control
+          formControlName="password"
+          [required]="true"
+      ></dc-user-password-control>
+    </div>
+  </section>
+
+  <footer>
+    <button
+        (click)="apply()"
+        color="primary"
+        mat-raised-button
+        [disabled]="form.invalid"
+    >
+      Войти
+    </button>
+  </footer>
+</mat-card>
+
+<dc-loader-with-backdrop *ngIf="loading"></dc-loader-with-backdrop>

@@ -1,0 +1,50 @@
+$outgoing-color: #e1f5fe;
+$incoming-color: #f5f5f5;
+
+header {
+  display: flex;
+  height: 25px;
+  padding: 5px 10px;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .date {
+    font-size: 10px;
+  }
+
+  .author {
+    font-size: 12px;
+  }
+}
+
+.text {
+  border-radius: 10px;
+  padding: 10px;
+  min-height: 30px;
+  background: $outgoing-color;
+  font-size: 14px;
+}
+
+:host {
+  $width: 85%;
+  $indent: 100% - $width;
+
+  display: flex;
+  width: $width;
+  padding-left: $indent;
+  flex-direction: column;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  &.incoming {
+    padding-right: $indent;
+    padding-left: 0;
+
+    header {
+      align-items: flex-start;
+    }
+
+    .text {
+      background: $incoming-color;
+    }
+  }
+}

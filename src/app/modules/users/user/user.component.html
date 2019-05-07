@@ -1,0 +1,103 @@
+<header>
+  <ng-container *ngIf="user; else newUserTemplate;">
+    Редактирование пользователя
+  </ng-container>
+  <ng-template #newUserTemplate>
+    Новый пользователь
+  </ng-template>
+</header>
+<section [formGroup]="form">
+  <div class="field">
+    <dc-user-login-control
+        formControlName="login"
+        [outerErrors]="loginErrors()"
+    ></dc-user-login-control>
+  </div>
+
+  <div
+      class="field"
+      *ngIf="!user"
+  >
+    <dc-user-password-control
+        label="Пароль"
+        [required]="true"
+        formControlName="password"
+    ></dc-user-password-control>
+  </div>
+
+  <dc-vertical-form-field
+      *ngIf="canChangeRole()"
+      class="field"
+  >
+    <dc-form-field-label
+        label="Роль"
+        [required]="true"
+    ></dc-form-field-label>
+
+    <ng-container sqFormFieldControl>
+      <dc-select-control formControlName="role">
+        <dc-option [value]="null">выбрать</dc-option>
+        <dc-option [value]="USER_ROLES_ENUM.BROKER">
+          брокер
+        </dc-option>
+        <dc-option [value]="USER_ROLES_ENUM.ADMIN">
+          админ
+        </dc-option>
+      </dc-select-control>
+    </ng-container>
+
+    <ng-container sqFormFieldErrors>
+    </ng-container>
+  </dc-vertical-form-field>
+
+  <dc-vertical-form-field class="field">
+    <dc-form-field-label label="Имя"></dc-form-field-label>
+
+    <ng-container sqFormFieldControl>
+      <dc-text-control formControlName="name"></dc-text-control>
+    </ng-container>
+
+    <ng-container sqFormFieldErrors>
+    </ng-container>
+  </dc-vertical-form-field>
+
+  <dc-vertical-form-field class="field">
+    <dc-form-field-label label="E-mail"></dc-form-field-label>
+
+    <ng-container sqFormFieldControl>
+      <dc-text-control formControlName="email"></dc-text-control>
+    </ng-container>
+
+    <ng-container sqFormFieldErrors>
+      <dc-control-error *ngIf="hasError('email', 'email')">
+        Некорректный формат.
+      </dc-control-error>
+
+      <dc-control-error *ngIf="hasError('email', 'unique-string')">
+        E-mail должен быть уникальным.
+      </dc-control-error>
+    </ng-container>
+  </dc-vertical-form-field>
+
+</section>
+
+<footer>
+  <button
+      color="primary"
+      mat-button
+      (click)="cancel.emit()"
+  >
+    Отмена
+  </button>
+
+  <button
+      color="primary"
+      mat-raised-button
+      [disabled]="form.invalid"
+      (click)="apply()"
+  >
+    Сохранить
+  </button>
+</footer>
+
+<dc-loader-with-backdrop *ngIf="loading"></dc-loader-with-backdrop>

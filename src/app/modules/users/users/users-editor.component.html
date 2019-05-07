@@ -1,0 +1,73 @@
+<section class="actions">
+  <button
+      mat-raised-button
+      (click)="openEditor(null)"
+  >
+    Создать пользователя
+  </button>
+</section>
+
+<section class="table">
+  <dc-table
+      *ngIf="columns"
+      [columns]="columns"
+      [items]="usersList?.users"
+  >
+    <ng-template
+        #actions
+        let-item="item"
+    >
+      <div class="actions">
+          <ng-container
+              *ngIf="canChangeState(item)"
+              [ngSwitch]="item.state"
+          >
+            <button
+                *ngSwitchCase="USER_STATES_ENUM.ACTIVE"
+                mat-button
+                color="warn"
+                (click)="updateUserState(item, USER_STATES_ENUM.INACTIVE)"
+            >
+              деактивировать
+            </button>
+
+            <button
+                *ngSwitchCase="USER_STATES_ENUM.INACTIVE"
+                mat-button
+                color="primary"
+                (click)="updateUserState(item, USER_STATES_ENUM.ACTIVE)"
+            >
+              активировать
+            </button>
+          </ng-container>
+
+        <button
+            mat-button
+            color="primary"
+            (click)="openEditor(item)"
+        >
+          редактировать
+        </button>
+
+        <button
+            mat-button
+            color="primary"
+            (click)="editPassword(item)"
+        >
+          пароль
+        </button>
+
+        <button
+            *ngIf="canDelete(item)"
+            mat-button
+            color="warn"
+            (click)="deleteUser(item)"
+        >
+          удалить
+        </button>
+      </div>
+    </ng-template>
+  </dc-table>
+</section>
+
+<dc-loader-with-backdrop *ngIf="loading"></dc-loader-with-backdrop>

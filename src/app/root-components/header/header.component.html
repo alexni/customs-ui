@@ -1,0 +1,54 @@
+<mat-toolbar
+    color="primary"
+    class="mat-toolbar-compact"
+>
+
+  <div class="toolbar">
+    <h1 class="title">
+      {{ title | async }}
+    </h1>
+
+    <div class="actions">
+      <a
+          *ngIf="isSigned"
+          routerLink="/claims/list"
+          mat-button
+          class="item"
+      >
+        <mat-icon>local_shipping</mat-icon>
+        <span class="title">Заявки</span>
+      </a>
+
+      <a
+          *ngIf="isAdmin"
+          routerLink="/users/editor"
+          mat-button
+          class="item"
+      >
+        <mat-icon>person_outline</mat-icon>
+        <span class="title">Пользователи</span>
+      </a>
+
+      <a
+          *ngIf="!isSigned; else logoutTemplate;"
+          routerLink="/users/sign-in"
+          mat-button
+          class="item"
+      >
+        <mat-icon>perm_identity</mat-icon>
+        <span class="title">Авторизация</span>
+      </a>
+    </div>
+
+    <ng-template #logoutTemplate>
+      <a
+          mat-button
+          class="item"
+          (click)="logout()"
+      >
+        <mat-icon>keyboard_return</mat-icon>
+        <span class="title">Выход</span>
+      </a>
+    </ng-template>
+  </div>
+</mat-toolbar>

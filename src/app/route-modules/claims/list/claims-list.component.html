@@ -1,0 +1,16 @@
+<dc-claims>
+  <ng-template
+      #actions
+      let-claim="claim"
+  >
+    <div class="actions">
+      <a
+          mat-button
+          color="primary"
+          [routerLink]="'/claims/claim/' + claim.id"
+      >
+        подробнее
+      </a>
+    </div>
+  </ng-template>
+</dc-claims>

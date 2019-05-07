@@ -1,0 +1,36 @@
+<form [formGroup]="form">
+  <dc-text-control
+      placeholder="Поисковый запрос"
+      formControlName="query"
+      class="query"
+  ></dc-text-control>
+
+  <dc-select-control
+      placeholder="Заявки"
+      formControlName="onlyMyClaims"
+      class="only-ma-claims"
+  >
+    <dc-option [value]="false">все заявки</dc-option>
+    <dc-option [value]="true">только мои заявки</dc-option>
+  </dc-select-control>
+
+  <dc-select-control
+      formControlName="state"
+      placeholder="Статус"
+      class="state"
+  >
+    <dc-option [value]="null">все статусы</dc-option>
+    <dc-option [value]="CLAIM_STATES_ENUM.START">в работе</dc-option>
+    <dc-option [value]="CLAIM_STATES_ENUM.ERROR">на доработке</dc-option>
+    <dc-option [value]="CLAIM_STATES_ENUM.REJECT">отвергнута</dc-option>
+    <dc-option [value]="CLAIM_STATES_ENUM.SUCCESS">завершена</dc-option>
+  </dc-select-control>
+
+  <button
+      mat-raised-button
+      color="primary"
+      class="apply-button"
+      (click)="applyFilters()"
+  >найти</button>
+
+</form>

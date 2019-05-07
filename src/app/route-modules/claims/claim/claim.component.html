@@ -1,0 +1,23 @@
+<as-split [useTransition]="true">
+  <as-split-area
+      [size]="50"
+      [order]="0"
+  >
+    <dc-claim
+        *ngIf="claim"
+        [claim]="claim"
+    ></dc-claim>
+  </as-split-area>
+
+  <as-split-area
+      [size]="50"
+      [order]="1"
+  >
+    <dc-chat
+        *ngIf="claim"
+        [claimId]="claim.id"
+    ></dc-chat>
+ </as-split-area>
+</as-split>
+
+<dc-loader-with-backdrop *ngIf="loading"></dc-loader-with-backdrop>
