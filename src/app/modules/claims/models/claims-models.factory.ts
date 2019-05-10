@@ -27,7 +27,7 @@ export class ClaimsModelsFactory {
       json.timestamp,
       json.state,
       this.createDriverFromJson(json),
-      json.managerIds,
+      json.manager_ids,
       json.is_have_new_message,
       json.service_type,
       json.checkpoint,

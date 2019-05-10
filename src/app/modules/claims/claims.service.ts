@@ -77,7 +77,7 @@ function mockClaim(id: string): ClaimJson {
     state,
     number: `number-${ id }`,
     timestamp: Date.now() - random(100, 99999) * 100,
-    managerIds: [],
+    manager_ids: [],
     is_have_new_message: [true, false][random(0, 1)],
     service_type: 'ОБЕСПЕЧЕНИЕ ТАМОЖЕННОГО ТРАНЗИТА',
     checkpoint: 'Калиниград',

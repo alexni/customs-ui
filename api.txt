@@ -95,3 +95,209 @@ GET /claim/{id}/messages
 
 POST /claim/{id}/message
 {text: text} 
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+Запросы
+
+    Авторизация
+    REQUEST POST /auth
+            body {
+                login: string;
+                password: string;
+            }
+    RESPONSE
+            headers += x-auth-token: token
+            body = User
+
+    ---- все запросы ниже идут с добавлением токена в заголовок x-auth-token: token
+
+    Текущий пользователь
+    REQUEST GET /user
+    RESPONSE
+        User
+
+    ----
+
+    Список пользователей
+    REQUEST GET /admin/users
+    RESPONSE
+        {
+            list: User[];
+        }
+
+    ----
+
+    Создание пользователя
+    REQUEST POST /admin/user
+            body {
+                login: string;
+                password: string;
+                role: UserRolesEnum;
+                name: string;
+                email: string;
+            }
+    RESPONSE
+        {
+            id: string;
+        }
+
+    ----
+
+    Редактирование пользователя
+    REQUEST PUT /admin/user/{id}
+            body {
+                login: string;
+                role: UserRolesEnum;
+                name: string;
+                email: string;
+            }
+    RESPONSE
+        {}
+
+    ----
+
+    Редактирование пароля пользователя
+    REQUEST PUT /admin/user/{id}/password
+            body {
+                password: string;
+            }
+    RESPONSE
+        {}
+
+    ----
+
+    Редактирование статуса пользователя
+    REQUEST PUT /admin/user/{id}/state
+            body {
+                state: UserStatesEnum;
+            }
+    RESPONSE
+        {}
+
+    ----
+
+    Заявка
+    REQUEST GET /declarant/claim/{id}
+    RESPONSE
+        Claim
+
+    ----
+
+    Список заявок
+    REQUEST GET /declarant/claim/list?offset={offset: number}&limit={limit: number}&state={state: ClaimStatesEnum | null}&manager_id={managerId: string | null}&query={query: string | null}
+    RESPONSE
+        {
+            list: Claim[];
+            total: number;
+        }
+
+    ----
+
+    Отправить заявку на доработку
+    REQUEST POST /declarant/claim/{id}/state/error
+            body {}
+    RESPONSE
+        {}
+
+    ----
+
+    Пометить заявку как завершенную
+    REQUEST POST /declarant/claim/{id}/state/success
+            body {}
+    RESPONSE
+        {}
+
+    ----
+
+    Пометить заявку как отвергнутую
+    REQUEST POST /declarant/claim/{id}/state/reject
+            body {}
+    RESPONSE
+        {}
+
+
+    ----
+
+    Список водителей
+    REQUEST GET /declarants/list?offset={offset: number}&limit={limit: number}&query={query: string | null}
+    RESPONSE
+        {
+            list: Declarant[]; // возможно лучше driver
+            total: number;
+        }
+
+    ----
+
+    Редактирование статуса водителя
+    REQUEST PUT /declarant/{id}/state
+            body {
+                state: DeclarantStatesEnum;
+            }
+    RESPONSE
+        {}
+
+Сущности
+
+interface User {
+  id: string;
+  login: string;
+  role: UserRolesEnum;
+  name: string;
+  email: string;
+  state: UserStatesEnum;
+}
+
+enum UserRolesEnum {
+  ADMIN = 'ADMIN',
+  BROKER = 'BROKER',
+}
+
+enum UserStatesEnum {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+}
+
+export interface Declarant {
+  id: string;
+  surname: string;
+  name: string;
+  patronymic: string;
+  birthday: string;
+  passport_series: string;
+  passport_number: string;
+  passport_date: string;
+  phone: string;
+  state: DeclarantStatesEnum;
+}
+
+enum DeclarantStatesEnum {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+}
+
+interface Claim {
+  id: string;
+  number: string;
+  timestamp: number;
+  state: ClaimStatesEnum;
+  manager_ids: string[];
+  is_have_new_message: boolean;
+  declarant: Declarant;
+  service_type: string;
+  checkpoint: string;
+  service_payer: string;
+  carrier: string;
+  number_car: string;
+  number_trailer: string;
+  documents_photos: string[]; // ссылки на изображения
+  comment: string;
+}
+
+enum ClaimStatesEnum {
+  START = 'START', // авто статус при создании. Изначально договаривались на запрос POST /declarant/claim/{id}/state/start, но он вроде не нужен, если не прав, то поправь меня.
+  ERROR = 'ERROR',
+  SUCCESS = 'SUCCESS',
+  REJECT = 'REJECT',
+}

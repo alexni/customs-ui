@@ -60,7 +60,7 @@ export class UsersService {
       );
   }
 
-  public deleteUser(userId: string): Observable<void> {
+  public updatePassword(userId: string, password: string): Observable<void> {
     return of(null)
       .pipe(
         delay(1500),
@@ -76,7 +76,7 @@ export class UsersService {
       );
   }
 
-  public updatePassword(userId: string, password: string): Observable<void> {
+  public deleteUser(userId: string): Observable<void> {
     return of(null)
       .pipe(
         delay(1500),

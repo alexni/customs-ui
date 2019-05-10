@@ -6,7 +6,7 @@ export interface ClaimJson extends DriverJson {
   number: string;
   timestamp: number;
   state: ClaimStatesEnum;
-  managerIds: string[];
+  manager_ids: string[];
   is_have_new_message: boolean;
   service_type: string;
   checkpoint: string;

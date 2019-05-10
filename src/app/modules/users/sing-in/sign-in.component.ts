@@ -41,7 +41,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
     this.setLoading(true);
     const signInSubscription = this.identityService
-      .signIn(login, password)
+      .auth(login, password)
       .pipe(
         map(() => this.setLoading(false)),
       )

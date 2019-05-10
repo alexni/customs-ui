@@ -23,7 +23,7 @@ export class IdentityService {
     this.currentUser.next(null);
   }
 
-  public signIn(login: string, password: string): Observable<void> {
+  public auth(login: string, password: string): Observable<void> {
     return of(userMock('broker-id-1', login, password))
       .pipe(
         delay(2500),
