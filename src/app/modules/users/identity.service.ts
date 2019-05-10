@@ -24,7 +24,7 @@ export class IdentityService {
   }
 
   public signIn(login: string, password: string): Observable<void> {
-    return of(userMock('2', login, password))
+    return of(userMock('broker-id-1', login, password))
       .pipe(
         delay(2500),
         map(json => this.usersModelsFactory.createUserFromJson(json)),

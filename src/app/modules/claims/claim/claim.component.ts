@@ -18,6 +18,9 @@ export class ClaimComponent {
   @Input()
   public claim!: Claim;
 
+  @Input()
+  public hasBrokerActivityInChat!: boolean;
+
   @Output()
   public readonly stateChanged = new EventEmitter<void>();
 

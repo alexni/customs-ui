@@ -14,6 +14,7 @@ import { Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { ChatService } from 'src/app/modules/claims/chat/chat.service';
 import { MessagesList } from 'src/app/modules/claims/chat/models/messages-list';
+import { IdentityService } from 'src/app/modules/users/identity.service';
 
 @Component({
   selector: 'dc-chat',
@@ -44,6 +45,7 @@ export class ChatComponent implements OnChanges, OnDestroy {
   constructor(
     private chatService: ChatService,
     private changeDetectorRef: ChangeDetectorRef,
+    private identityService: IdentityService,
   ) {
     this.initialListLoad();
   }
@@ -57,6 +59,14 @@ export class ChatComponent implements OnChanges, OnDestroy {
   public ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     this.stopPooling();
+  }
+
+  public hasBrokerActivity(): boolean {
+    return !!this.messagesList && this.messagesList
+      .messages
+      .map(message => message.broker)
+      .filter(broker => !!broker)
+      .some(broker => broker!.id === this.identityService.currentUser.value!.id);
   }
 
   public restartPooling(firstNotLazy: boolean): void {

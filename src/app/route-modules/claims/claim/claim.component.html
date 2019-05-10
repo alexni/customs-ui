@@ -6,6 +6,7 @@
     <dc-claim
         *ngIf="claim"
         [claim]="claim"
+        [hasBrokerActivityInChat]="chatComponent?.hasBrokerActivity()"
     ></dc-claim>
   </as-split-area>
 

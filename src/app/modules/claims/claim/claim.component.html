@@ -3,6 +3,7 @@
     <button
         mat-raised-button
         color="accent"
+        [disabled]="!hasBrokerActivityInChat"
         (click)="error()"
     >
       на доработку
