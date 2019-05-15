@@ -6,11 +6,11 @@
     <ng-container *ngIf="actionsTemplate">
       <ng-template
           #actions
-          let-item="item"
+          let-entity="entity"
       >
         <ng-container
             [ngTemplateOutlet]="actionsTemplate"
-            [ngTemplateOutletContext]="{ item: item }"
+            [ngTemplateOutletContext]="{ entity: entity }"
         ></ng-container>
       </ng-template>
     </ng-container>

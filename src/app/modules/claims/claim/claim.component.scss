@@ -10,46 +10,73 @@ $header-height: 50px;
 
 header {
   $border-bottom-width: 1px;
+  $declarant-state-width: 300px;
 
   display: flex;
   height: $header-height - $border-bottom-width;
   align-items: center;
   border-bottom: $border-bottom-width solid $border-color;
 
-  button {
-    margin-left: 10px;
+  .states {
+    display: flex;
+    width: calc(100% - #{$declarant-state-width});
+    height: 100%;
+    align-items: center;
+
+    button {
+      margin-left: 10px;
+    }
+
+    .message {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 0 10px;
+
+      .icon {
+        display: inline-block;
+        margin-right: 1px;
+      }
+
+      &.reject {
+        &,
+        .icon {
+          color: #d50000;
+        }
+      }
+
+      &.success {
+        &,
+        .icon {
+          color: #2e7d32;
+        }
+      }
+
+      &.error {
+        &,
+        .icon {
+          color: #1976d2;
+        }
+      }
+    }
   }
 
-  .message {
+  .declarant-state {
+    $padding-right: 10px;
+
     display: flex;
+    width: $declarant-state-width - $padding-right;
+    height: 100%;
+    padding-right: $padding-right;
     align-items: center;
-    white-space: nowrap;
-    padding: 0 10px;
+    justify-content: flex-end;
 
-    .icon {
-      display: inline-block;
-      margin-right: 1px;
-    }
-
-    &.reject {
-      &,
-      .icon {
-        color: #d50000;
-      }
-    }
-
-    &.success {
-      &,
-      .icon {
-        color: #2e7d32;
-      }
-    }
-
-    &.error {
-      &,
-      .icon {
-        color: #1976d2;
-      }
+    span {
+      display: block;
+      font-weight: 600;
+      padding-right: $padding-right;
+      position: relative;
+      top: -1px;
     }
   }
 }

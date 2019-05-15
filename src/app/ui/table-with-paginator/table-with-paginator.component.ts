@@ -65,6 +65,21 @@ export class TableWithPaginatorComponent<T> implements OnChanges {
     this.loadList();
   }
 
+  public replaceEntity(targetEntity: T, predicate: (targetEntity: T, entity: T) => boolean): boolean {
+    const items = [...this.list.items];
+
+    const index = items.findIndex(entity => predicate(targetEntity, entity));
+    if (index !== -1) {
+      items[index] = targetEntity;
+      this.list.items = items;
+      this.changeDetectorRef.markForCheck();
+
+      return true;
+    }
+
+    return false;
+  }
+
   private loadList(): void {
     this.loadListUnsubscribe();
     this.setLoading(true);

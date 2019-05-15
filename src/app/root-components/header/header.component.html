@@ -11,12 +11,22 @@
     <div class="actions">
       <a
           *ngIf="isSigned"
-          routerLink="/claims/list"
+          routerLink="/claims/claims"
           mat-button
           class="item"
       >
         <mat-icon>local_shipping</mat-icon>
         <span class="title">Заявки</span>
+      </a>
+
+     <a
+          *ngIf="isSigned"
+          routerLink="/claims/declarants"
+          mat-button
+          class="item"
+      >
+        <mat-icon>person</mat-icon>
+        <span class="title">Декларанты</span>
       </a>
 
       <a

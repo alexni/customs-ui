@@ -1,9 +1,20 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ClaimsService } from 'src/app/modules/claims/claims.service';
 import { ClaimStatesEnum } from 'src/app/modules/claims/enums/claim-states.enum';
+import { DeclarantStatesEnum } from 'src/app/modules/claims/enums/declarant-states.enum';
 import { Claim } from 'src/app/modules/claims/models/claim';
+import { Declarant } from 'src/app/modules/claims/models/declarant';
 
 @Component({
   selector: 'dc-claim',
@@ -11,7 +22,7 @@ import { Claim } from 'src/app/modules/claims/models/claim';
   styleUrls: ['./claim.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClaimComponent {
+export class ClaimComponent implements OnChanges {
 
   public readonly CLAIM_STATES_ENUM = ClaimStatesEnum;
 
@@ -28,10 +39,18 @@ export class ClaimComponent {
 
   public changeClaimStateSubscription: Subscription | null = null;
 
+  public isDeclarantActive!: boolean;
+
   constructor(
     private claimsService: ClaimsService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes.claim) {
+      this.refreshIsDeclarantActive();
+    }
   }
 
   public error(): void {
@@ -56,6 +75,12 @@ export class ClaimComponent {
     }
 
     this.changeClaimState(ClaimStatesEnum.SUCCESS);
+  }
+
+  public setDeclarant(declarant: Declarant): void {
+    this.claim.declarant = declarant;
+    this.refreshIsDeclarantActive();
+    this.changeDetectorRef.markForCheck();
   }
 
   private changeClaimState(state: ClaimStatesEnum): void {
@@ -83,6 +108,10 @@ export class ClaimComponent {
   private setLoading(loading: boolean): void {
     this.loading = loading;
     this.changeDetectorRef.markForCheck();
+  }
+
+  private refreshIsDeclarantActive(): void {
+    this.isDeclarantActive = this.claim.declarant.state === DeclarantStatesEnum.ACTIVE;
   }
 
 }

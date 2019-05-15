@@ -1,22 +1,33 @@
 import { ClaimJson } from 'src/app/modules/claims/json/claim.json-interface';
 import { ClaimsListJson } from 'src/app/modules/claims/json/claims-list.json-interface';
-import { DriverJson } from 'src/app/modules/claims/json/driver.json-interface';
+import { DeclarantJson } from 'src/app/modules/claims/json/declarant.json-interface';
+import { DeclarantsListJson } from 'src/app/modules/claims/json/declarants-list.json-interface';
 import { Claim } from 'src/app/modules/claims/models/claim';
 import { ClaimsList } from 'src/app/modules/claims/models/claims-list';
-import { Driver } from 'src/app/modules/claims/models/driver';
+import { Declarant } from 'src/app/modules/claims/models/declarant';
+import { DeclarantsList } from 'src/app/modules/claims/models/declarants-list';
 
 export class ClaimsModelsFactory {
 
-  public createDriverFromJson(json: DriverJson): Driver {
-    return new Driver(
-      json.driver_surname,
-      json.driver_name,
-      json.driver_patronymic,
-      json.driver_birthday,
-      json.driver_passport_series,
-      json.driver_passport_number,
-      json.driver_passport_date,
-      json.driver_phone,
+  public createDeclarantFromJson(json: DeclarantJson): Declarant {
+    return new Declarant(
+      json.id,
+      json.surname,
+      json.name,
+      json.patronymic,
+      json.birthday,
+      json.passport_series,
+      json.passport_number,
+      json.passport_date,
+      json.phone,
+      json.state,
+    );
+  }
+
+  public createDeclarantsListFromJson(json: DeclarantsListJson): DeclarantsList {
+    return new DeclarantsList(
+      json.declarants.map(itemJson => this.createDeclarantFromJson(itemJson)),
+      json.total,
     );
   }
 
@@ -26,7 +37,7 @@ export class ClaimsModelsFactory {
       json.number,
       json.timestamp,
       json.state,
-      this.createDriverFromJson(json),
+      this.createDeclarantFromJson(json.declarant),
       json.manager_ids,
       json.is_have_new_message,
       json.service_type,

@@ -20,7 +20,7 @@
         <ng-container
             *ngIf="column.templateRef; else defaultTemplate;"
             [ngTemplateOutlet]="column.templateRef"
-            [ngTemplateOutletContext]="{ item: item[column.property] }"
+            [ngTemplateOutletContext]="{ property: item[column.property], entity: item }"
         ></ng-container>
         <ng-template #defaultTemplate>
           {{ item[column.property] }}
@@ -42,7 +42,7 @@
       >
          <ng-container
              [ngTemplateOutlet]="actionsTemplate"
-             [ngTemplateOutletContext]="{ item: item }"
+             [ngTemplateOutletContext]="{ entity: item }"
          ></ng-container>
       </td>
     </ng-container>

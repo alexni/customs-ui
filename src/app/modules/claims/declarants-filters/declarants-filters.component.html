@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+  <dc-text-control
+      placeholder="Поисковый запрос"
+      formControlName="query"
+      class="query"
+  ></dc-text-control>
+
+  <button
+      mat-raised-button
+      color="primary"
+      class="apply-button"
+      (click)="applyFilters()"
+  >найти</button>
+
+</form>

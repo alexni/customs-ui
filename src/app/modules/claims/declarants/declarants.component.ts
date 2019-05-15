@@ -1,36 +1,34 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ClaimsFilters } from 'src/app/modules/claims/claims-filters/claims.filters';
 import { ClaimsService } from 'src/app/modules/claims/claims.service';
-import { Claim } from 'src/app/modules/claims/models/claim';
+import { DeclarantsFilters } from 'src/app/modules/claims/declarants-filters/declarants.filters';
+import { Declarant } from 'src/app/modules/claims/models/declarant';
 import { TableDataSource } from 'src/app/ui/table-with-paginator/table-data.source';
 import { TableWithPaginatorComponent } from 'src/app/ui/table-with-paginator/table-with-paginator.component';
 import { Column } from 'src/app/ui/table/column';
 
 @Component({
-  selector: 'dc-claims',
-  templateUrl: './claims.component.html',
-  styleUrls: ['./claims.component.scss'],
+  selector: 'dc-declarants',
+  templateUrl: './declarants.component.html',
+  styleUrls: ['./declarants.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClaimsComponent implements OnInit {
+export class DeclarantsComponent implements OnInit {
 
   public columns: Column[] = [];
 
-  public filters = new ClaimsFilters();
+  public filters = new DeclarantsFilters();
 
-  public paginatorSource!: TableDataSource<Claim>;
+  public paginatorSource!: TableDataSource<Declarant>;
 
   @ContentChild('actions')
   public actionsTemplate?: TemplateRef<any>;
 
   @ViewChild(TableWithPaginatorComponent)
-  private tableComponent!: TableWithPaginatorComponent<Claim>;
+  private tableComponent!: TableWithPaginatorComponent<Declarant>;
 
-  @ViewChild('timestampTemplate')
-  private timestampTemplate!: TemplateRef<any>;
-
-  @ViewChild('declarantTemplate')
-  private declarantTemplate!: TemplateRef<any>;
+  @ViewChild('stateTemplate')
+  private stateTemplate!: TemplateRef<any>;
 
   constructor(
     private claimsService: ClaimsService,
@@ -40,14 +38,13 @@ export class ClaimsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.columns = [
-      new Column('number', 'Номер заявки'),
-      new Column('serviceType', 'Вид услуги'),
-      new Column('checkpoint', 'Пункт пропуска'),
-      new Column('carrier', 'Перевозчик'),
-      new Column('declarant', 'Декларант', this.declarantTemplate),
-      new Column('timestamp', 'Дата создания', this.timestampTemplate),
-      new Column('state', 'Статус заявки'),
+      new Column('phone', 'Телефон'),
+      new Column('surname', 'Фамилия'),
+      new Column('name', 'Имя'),
+      new Column('patronymic', 'Отчество'),
+      new Column('state', 'Статус декларанта', this.stateTemplate),
     ];
+
     this.createPaginatorSource();
   }
 
@@ -57,10 +54,16 @@ export class ClaimsComponent implements OnInit {
     this.tableComponent.reloadList();
   }
 
+  public replaceDeclarant(declarant: Declarant): void {
+    this
+      .tableComponent
+      .replaceEntity(declarant, (targetEntity: Declarant, entity: Declarant) => targetEntity.id === entity.id);
+  }
+
   private createPaginatorSource(): void {
-    this.paginatorSource = new TableDataSource<Claim>((offset: number, limit: number) => this
+    this.paginatorSource = new TableDataSource<Declarant>((offset: number, limit: number) => this
       .claimsService
-      .loadClaimsList(offset, limit, this.filters.query, this.filters.managerId, this.filters.state),
+      .loadDelarantsList(offset, limit, this.filters.query),
     );
   }
 

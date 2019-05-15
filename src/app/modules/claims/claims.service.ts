@@ -3,11 +3,15 @@ import { random } from 'lodash';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { ClaimStatesEnum } from 'src/app/modules/claims/enums/claim-states.enum';
+import { DeclarantStatesEnum } from 'src/app/modules/claims/enums/declarant-states.enum';
 import { ClaimJson } from 'src/app/modules/claims/json/claim.json-interface';
 import { ClaimsListJson } from 'src/app/modules/claims/json/claims-list.json-interface';
+import { DeclarantJson } from 'src/app/modules/claims/json/declarant.json-interface';
+import { DeclarantsListJson } from 'src/app/modules/claims/json/declarants-list.json-interface';
 import { Claim } from 'src/app/modules/claims/models/claim';
 import { ClaimsList } from 'src/app/modules/claims/models/claims-list';
 import { ClaimsModelsFactory } from 'src/app/modules/claims/models/claims-models.factory';
+import { DeclarantsList } from 'src/app/modules/claims/models/declarants-list';
 import { emptyArray } from 'src/app/ui/common/helpers/empty-array.function';
 import { returnVoid } from 'src/app/ui/common/helpers/return-void.function';
 
@@ -17,7 +21,7 @@ export class ClaimsService {
   constructor(private claimsModelsFactory: ClaimsModelsFactory) {
   }
 
-  public loadList(
+  public loadClaimsList(
     offset: number,
     limit: number,
     query: string | null = null,
@@ -61,6 +65,28 @@ export class ClaimsService {
       );
   }
 
+  public loadDelarantsList(
+    offset: number,
+    limit: number,
+    query: string | null = null,
+    managerId: string | null = null,
+    state: DeclarantStatesEnum | null = null,
+  ): Observable<DeclarantsList> {
+    return of(mockDeclarantsList(offset, limit, query, managerId, state))
+      .pipe(
+        delay(1500),
+        map(json => this.claimsModelsFactory.createDeclarantsListFromJson(json)),
+      );
+  }
+
+  public updateDeclarantState(declarantId: string, state: DeclarantStatesEnum): Observable<void> {
+    return of(null)
+      .pipe(
+        delay(1500),
+        map(returnVoid),
+      );
+  }
+
 }
 
 function mockClaim(id: string): ClaimJson {
@@ -93,14 +119,7 @@ function mockClaim(id: string): ClaimJson {
       'https://previews.123rf.com/images/vitaliyvill/vitaliyvill1609/vitaliyvill160900011/62999356-seamless-game-background-flat-style-2d-game-application.jpg',
     ],
     comment: 'Какой-то непонятный комментарий от водителя.',
-    driver_surname: 'Иванов',
-    driver_name: 'Иван',
-    driver_patronymic: 'Иванович ',
-    driver_birthday: '30.04.1987',
-    driver_passport_series: '2211',
-    driver_passport_number: '347612',
-    driver_passport_date: '01.05.2007',
-    driver_phone: '+79507682365',
+    declarant: mockDeclarant('declarant-id-1'),
   };
 }
 
@@ -117,6 +136,38 @@ function mockClaimsList(
 
   return {
     claims,
+    total: 100,
+  };
+}
+
+function mockDeclarant(id: string): DeclarantJson {
+  return {
+    id,
+    surname: 'Иванов',
+    name: 'Иван',
+    patronymic: 'Иванович ',
+    birthday: '30.04.1987',
+    passport_series: '2211',
+    passport_number: '347612',
+    passport_date: '01.05.2007',
+    phone: '+79507682365',
+    state: DeclarantStatesEnum.ACTIVE,
+  };
+}
+
+function mockDeclarantsList(
+  offset: number,
+  limit: number,
+  query: string | null = null,
+  managerId: string | null = null,
+  state: DeclarantStatesEnum | null = null,
+): DeclarantsListJson {
+  const declarants = emptyArray(limit)
+    .map((v: null, i: number) => String(i + 1 + offset))
+    .map(id => mockDeclarant(id));
+
+  return {
+    declarants,
     total: 100,
   };
 }

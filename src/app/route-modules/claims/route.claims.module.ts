@@ -6,7 +6,8 @@ import { AngularSplitModule } from 'angular-split';
 import { ChatModule } from 'src/app/modules/claims/chat/chat.module';
 import { ClaimsModule } from 'src/app/modules/claims/claims.module';
 import { ClaimComponent } from 'src/app/route-modules/claims/claim/claim.component';
-import { ClaimsListComponent } from 'src/app/route-modules/claims/list/claims-list.component';
+import { ClaimsListComponent } from 'src/app/route-modules/claims/claims/claims-list.component';
+import { DeclarantsListComponent } from 'src/app/route-modules/claims/declarants/declarants-list.component';
 import { LoaderWithBackdropModule } from 'src/app/ui/loader-with-backdrop/loader-with-backdrop.module';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { LoaderWithBackdropModule } from 'src/app/ui/loader-with-backdrop/loader
   declarations: [
     ClaimsListComponent,
     ClaimComponent,
+    DeclarantsListComponent,
   ],
 })
 export class RouteClaimsModule {

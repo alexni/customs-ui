@@ -15,18 +15,18 @@
   >
     <ng-template
         #actions
-        let-item="item"
+        let-entity="entity"
     >
       <div class="actions">
           <ng-container
-              *ngIf="canChangeState(item)"
-              [ngSwitch]="item.state"
+              *ngIf="canChangeState(entity)"
+              [ngSwitch]="entity.state"
           >
             <button
                 *ngSwitchCase="USER_STATES_ENUM.ACTIVE"
                 mat-button
                 color="warn"
-                (click)="updateUserState(item, USER_STATES_ENUM.INACTIVE)"
+                (click)="updateUserState(entity, USER_STATES_ENUM.INACTIVE)"
             >
               деактивировать
             </button>
@@ -35,7 +35,7 @@
                 *ngSwitchCase="USER_STATES_ENUM.INACTIVE"
                 mat-button
                 color="primary"
-                (click)="updateUserState(item, USER_STATES_ENUM.ACTIVE)"
+                (click)="updateUserState(entity, USER_STATES_ENUM.ACTIVE)"
             >
               активировать
             </button>
@@ -44,7 +44,7 @@
         <button
             mat-button
             color="primary"
-            (click)="openEditor(item)"
+            (click)="openEditor(entity)"
         >
           редактировать
         </button>
@@ -52,16 +52,16 @@
         <button
             mat-button
             color="primary"
-            (click)="editPassword(item)"
+            (click)="editPassword(entity)"
         >
           пароль
         </button>
 
         <button
-            *ngIf="canDelete(item)"
+            *ngIf="canDelete(entity)"
             mat-button
             color="warn"
-            (click)="deleteUser(item)"
+            (click)="deleteUser(entity)"
         >
           удалить
         </button>

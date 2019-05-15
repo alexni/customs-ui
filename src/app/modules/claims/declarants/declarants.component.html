@@ -1,8 +1,8 @@
 <section class="filters">
-  <dc-claims-filters
+  <dc-declarants-filters
       [filters]="filters"
       (changeFilters)="setFilters($event)"
-  ></dc-claims-filters>
+  ></dc-declarants-filters>
 </section>
 
 <section class="table">
@@ -18,7 +18,7 @@
       >
         <ng-container
             [ngTemplateOutlet]="actionsTemplate"
-            [ngTemplateOutletContext]="{ claim: entity }"
+            [ngTemplateOutletContext]="{ declarant: entity }"
         ></ng-container>
       </ng-template>
     </ng-container>
@@ -27,19 +27,11 @@
 </section>
 
 <ng-template
-    #timestampTemplate
-    let-property="property"
+    let-entity="entity"
+    #stateTemplate
 >
-  <div class="date">
-    {{ property | date:'dd.MM.yyyy' }}
-  </div>
-</ng-template>
-
-<ng-template
-    #declarantTemplate
-    let-property="property"
->
-  <div class="date">
-    {{ property.surname + ' ' + property.name + ' ' + property.patronymic }}
-  </div>
+  <dc-declarant-state
+      [declarant]="entity"
+      (changeState)="replaceDeclarant($event)"
+  ></dc-declarant-state>
 </ng-template>

@@ -1,28 +1,28 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ClaimsFilters } from 'src/app/modules/claims/claims-filters/claims.filters';
 import { ClaimStatesEnum } from 'src/app/modules/claims/enums/claim-states.enum';
-import { ClaimsFilters } from 'src/app/modules/claims/filters/claims.filters';
 import { IdentityService } from 'src/app/modules/users/identity.service';
 import { User } from 'src/app/modules/users/models/user';
 
 @Component({
-  selector: 'dc-claim-filters',
-  templateUrl: 'claim-filters.component.html',
-  styleUrls: ['claim-filters.component.scss'],
+  selector: 'dc-claims-filters',
+  templateUrl: 'claims-filters.component.html',
+  styleUrls: ['claims-filters.component.scss'],
 })
-export class ClaimFiltersComponent implements OnChanges, OnDestroy {
-
-  private get user(): User {
-    return this.identityService.currentUser.value!;
-  }
+export class ClaimsFiltersComponent implements OnChanges, OnDestroy {
 
   public readonly CLAIM_STATES_ENUM = ClaimStatesEnum;
+
   @Input()
   public filters = new ClaimsFilters();
+
   @Output()
   public changeFilters = new EventEmitter<ClaimsFilters>();
+
   public form!: FormGroup;
+
   public subscriptions = new Subscription();
 
   constructor(
@@ -30,6 +30,10 @@ export class ClaimFiltersComponent implements OnChanges, OnDestroy {
     private identityService: IdentityService,
   ) {
     this.createForm();
+  }
+
+  private get user(): User {
+    return this.identityService.currentUser.value!;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

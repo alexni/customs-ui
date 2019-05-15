@@ -1,0 +1,8 @@
+<mat-slide-toggle
+    [formControl]="control"
+    color="primary"
+>
+  {{ declarant.state }}
+</mat-slide-toggle>
+
+<dc-loader-with-backdrop *ngIf="loading"></dc-loader-with-backdrop>

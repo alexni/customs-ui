@@ -1,5 +1,5 @@
 import { ClaimStatesEnum } from 'src/app/modules/claims/enums/claim-states.enum';
-import { Driver } from 'src/app/modules/claims/models/driver';
+import { Declarant } from 'src/app/modules/claims/models/declarant';
 
 export class Claim {
   constructor(
@@ -7,7 +7,7 @@ export class Claim {
     public number: string,
     public timestamp: number,
     public state: ClaimStatesEnum,
-    public driver: Driver,
+    public declarant: Declarant,
     public managerIds: string[],
     public isHaveNewMessage: boolean,
     public serviceType: string,
