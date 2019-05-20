@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { random } from 'lodash';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
+import { API_URL_GATEWAY } from 'src/app/api-service.config';
 import { ClaimStatesEnum } from 'src/app/modules/claims/enums/claim-states.enum';
 import { DeclarantStatesEnum } from 'src/app/modules/claims/enums/declarant-states.enum';
 import { ClaimJson } from 'src/app/modules/claims/json/claim.json-interface';
@@ -18,7 +20,11 @@ import { returnVoid } from 'src/app/ui/common/helpers/return-void.function';
 @Injectable()
 export class ClaimsService {
 
-  constructor(private claimsModelsFactory: ClaimsModelsFactory) {
+  constructor(
+    private claimsModelsFactory: ClaimsModelsFactory,
+    private httpClient: HttpClient,
+    @Inject(API_URL_GATEWAY) private api: string,
+  ) {
   }
 
   public loadClaimsList(
@@ -28,9 +34,24 @@ export class ClaimsService {
     managerId: string | null = null,
     state: ClaimStatesEnum | null = null,
   ): Observable<ClaimsList> {
-    return of(mockClaimsList(offset, limit, query, managerId, state))
+    let params = new HttpParams()
+      .set('offset', String(offset))
+      .set('limit', String(limit))
+      .set('manager_id', managerId ? managerId : '0')
+    ;
+
+    if (query) {
+      params = params.set('query', query);
+    }
+
+    if (state) {
+      params = params.set('state', state);
+    }
+
+    return this
+      .httpClient
+      .get<ClaimsListJson>(`${ this.api }/declarant/claim/list`, { params })
       .pipe(
-        delay(1500),
         map(json => this.claimsModelsFactory.createClaimsListFromJson(json)),
       );
   }
@@ -135,8 +156,8 @@ function mockClaimsList(
     .map(id => mockClaim(id));
 
   return {
-    claims,
-    total: 100,
+    content: claims,
+    totalElements: 100,
   };
 }
 

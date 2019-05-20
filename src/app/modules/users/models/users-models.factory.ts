@@ -25,7 +25,7 @@ export class UsersModelsFactory {
   public createUserFromJson(json: UserJson): User {
     return this.createUser(
       json.id,
-      json.state,
+      json.state || UserStatesEnum.INACTIVE,
       json.role,
       json.login,
       json.name,
@@ -38,7 +38,7 @@ export class UsersModelsFactory {
   }
 
   public createUsersListFromJson(json: UsersListJson): UsersList {
-    const users = json.users.map(itemJson => this.createUserFromJson(itemJson));
+    const users = json.map(itemJson => this.createUserFromJson(itemJson));
 
     return this.createUsersList(users);
   }

@@ -1,6 +1,6 @@
 export enum ClaimStatesEnum {
-  START = 'START',
-  ERROR = 'ERROR',
-  SUCCESS = 'SUCCESS',
-  REJECT = 'REJECT',
+  START = 'Start',
+  ERROR = 'Error',
+  SUCCESS = 'Success',
+  REJECT = 'Reject',
 }

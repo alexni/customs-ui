@@ -1,4 +1,4 @@
 export enum MessageStatesEnum {
-  NEW = 'NEW',
-  READED = 'READED',
+  NEW = 'New',
+  READ = 'Read',
 }

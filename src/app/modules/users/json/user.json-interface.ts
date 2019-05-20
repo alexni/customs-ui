@@ -7,5 +7,5 @@ export interface UserJson {
   role: UserRolesEnum;
   name: string;
   email: string;
-  state: UserStatesEnum;
+  state?: UserStatesEnum;
 }

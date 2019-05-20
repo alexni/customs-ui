@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
+import { API_URL_GATEWAY } from 'src/app/api-service.config';
 import { UserRolesEnum } from 'src/app/modules/users/enum/user-roles.enum';
 import { UserStatesEnum } from 'src/app/modules/users/enum/user-states.enum';
 import { UserJson } from 'src/app/modules/users/json/user.json-interface';
@@ -16,13 +18,15 @@ export class UsersService {
 
   constructor(
     private usersModelsFactory: UsersModelsFactory,
+    private httpClient: HttpClient,
+    @Inject(API_URL_GATEWAY) private api: string,
   ) {
   }
 
   public loadList(): Observable<UsersList> {
-    return of(usersListMock())
+    return this.httpClient
+      .get<UsersListJson>(`${ this.api }/admin/users`)
       .pipe(
-        delay(1500),
         map(json => this.usersModelsFactory.createUsersListFromJson(json)),
       );
   }
@@ -34,9 +38,15 @@ export class UsersService {
     name: string,
     email: string,
   ): Observable<User> {
-    return of({ id: `test-id-${ login }` })
+    return this.httpClient
+      .post<{ id: string; }>(`${ this.api }/admin/user`, {
+        login,
+        role,
+        name,
+        email,
+        pass: password,
+      })
       .pipe(
-        delay(1500),
         map(json => json.id),
         map(id => this.usersModelsFactory
           .createUser(id, UserStatesEnum.INACTIVE, role, login, name, email),
@@ -51,9 +61,14 @@ export class UsersService {
     name: string,
     email: string,
   ): Observable<User> {
-    return of(null)
+    return this.httpClient
+      .put(`${ this.api }/admin/user/${originalUser.id}`, {
+        login,
+        role,
+        name,
+        email,
+      })
       .pipe(
-        delay(1500),
         map(() => this.usersModelsFactory
           .createUser(originalUser.id, originalUser.state, role, login, name, email),
         ),
@@ -61,25 +76,29 @@ export class UsersService {
   }
 
   public updatePassword(userId: string, password: string): Observable<void> {
-    return of(null)
+    return this.httpClient
+      .put(`${ this.api }/admin/user/${userId}/password`, {
+        password,
+      })
       .pipe(
-        delay(1500),
         map(returnVoid),
       );
   }
 
   public updateState(userId: string, state: UserStatesEnum): Observable<void> {
-    return of(null)
+    return this.httpClient
+      .put(`${ this.api }/admin/user/${userId}/state`, {
+        state,
+      })
       .pipe(
-        delay(1500),
         map(returnVoid),
       );
   }
 
   public deleteUser(userId: string): Observable<void> {
-    return of(null)
+    return this.httpClient
+      .delete(`${ this.api }/admin/user/${userId}`)
       .pipe(
-        delay(1500),
         map(returnVoid),
       );
   }
@@ -98,9 +117,7 @@ function userMock(id: string): UserJson {
 }
 
 function usersListMock(): UsersListJson {
-  return {
-    users: emptyArray(50)
-      .map((v: null, i: number) => String(i + 1))
-      .map(id => userMock(id)),
-  };
+  return emptyArray(50)
+    .map((v: null, i: number) => String(i + 1))
+    .map(id => userMock(id));
 }

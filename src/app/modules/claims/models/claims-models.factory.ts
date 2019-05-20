@@ -53,8 +53,8 @@ export class ClaimsModelsFactory {
 
   public createClaimsListFromJson(json: ClaimsListJson): ClaimsList {
     return new ClaimsList(
-      json.claims.map(itemJson => this.createClaimFromJson(itemJson)),
-      json.total,
+      json.content.map(itemJson => this.createClaimFromJson(itemJson)),
+      json.totalElements,
     );
   }
 

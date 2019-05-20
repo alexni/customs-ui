@@ -59,7 +59,11 @@ export class UsersEditorComponent implements OnDestroy {
   }
 
   public canDelete(user: User): boolean {
+    /*
+    todo: раскоментить, когда будет потдержано на бэкенде
     return !this.identityService.isCurrentUser(user);
+    */
+    return false;
   }
 
   public openEditor(user: User | null): void {

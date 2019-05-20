@@ -38,7 +38,7 @@ export class ChatService {
 
 function mockMessage(id: string, text: string): MessageJson {
   const brokerId = ['broker-id-1', null][Number(id) % 2];
-  const state = [MessageStatesEnum.NEW, MessageStatesEnum.READED][random(0, 1)];
+  const state = [MessageStatesEnum.NEW, MessageStatesEnum.READ][random(0, 1)];
 
   return {
     id,

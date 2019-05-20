@@ -119,6 +119,23 @@
 
     ----
 
+    Сообщения чата заявки
+    REQUEST GET /declarant/claim/{id}/messages
+    RESPONSE
+        MessagesListJson
+
+    ----
+
+    Новое сообщение в чат
+    REQUEST POST /declarant/claim/{id}/message
+            body {
+                text: string;
+            }
+    RESPONSE
+        {}
+
+    ----
+
     Список водителей
     REQUEST GET /declarants/list?offset={offset: number}&limit={limit: number}&query={query: string | null}
     RESPONSE
@@ -199,4 +216,24 @@ enum ClaimStatesEnum {
   ERROR = 'ERROR',
   SUCCESS = 'SUCCESS',
   REJECT = 'REJECT',
+}
+
+interface Message {
+  id: string;
+  broker_id: string | null;
+  timestamp: number;
+  state: MessageStatesEnum;
+  text: string;
+}
+
+interface MessagesList {
+  messages: MessageJson[];
+  brokers: {
+    [id: string]: UserJson;
+  };
+}
+
+enum MessageStatesEnum {
+  NEW = 'New',
+  READ = 'Read',
 }

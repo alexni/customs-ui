@@ -34,9 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(
         filter(user => !user),
       )
-      .subscribe(() => {
-        this.router.navigate(['/users/sign-in']);
-      });
+      .subscribe(() => this.router.navigate(['/users/sign-in']));
     this.subscriptions.add(redirectToSignInSubscription);
   }
 

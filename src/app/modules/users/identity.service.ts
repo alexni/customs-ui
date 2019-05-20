@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
+import { API_URL_GATEWAY } from 'src/app/api-service.config';
 import { UserRolesEnum } from 'src/app/modules/users/enum/user-roles.enum';
 import { UserStatesEnum } from 'src/app/modules/users/enum/user-states.enum';
 import { UserJson } from 'src/app/modules/users/json/user.json-interface';
@@ -16,6 +18,8 @@ export class IdentityService {
 
   constructor(
     private usersModelsFactory: UsersModelsFactory,
+    private httpClient: HttpClient,
+    @Inject(API_URL_GATEWAY) private api: string,
   ) {
   }
 
