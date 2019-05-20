@@ -229,7 +229,7 @@ interface Message {
 interface MessagesList {
   messages: MessageJson[];
   brokers: {
-    [id: string]: UserJson;
+    [id: string]: User;
   };
 }
 
