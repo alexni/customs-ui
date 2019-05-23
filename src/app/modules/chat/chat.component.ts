@@ -12,8 +12,8 @@ import {
 import { defer } from 'lodash';
 import { Subject, Subscription, timer } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { ChatService } from 'src/app/modules/claims/chat/chat.service';
-import { MessagesList } from 'src/app/modules/claims/chat/models/messages-list';
+import { ChatService } from 'src/app/modules/chat/chat.service';
+import { MessagesList } from 'src/app/modules/chat/models/messages-list';
 import { IdentityService } from 'src/app/modules/users/identity.service';
 
 @Component({
@@ -66,7 +66,7 @@ export class ChatComponent implements OnChanges, OnDestroy {
       .messages
       .map(message => message.broker)
       .filter(broker => !!broker)
-      .some(broker => broker!.id === this.identityService.currentUser.value!.id);
+      .some(broker => broker!.id === this.identityService.getCurrentUser()!.id);
   }
 
   public restartPooling(firstNotLazy: boolean): void {

@@ -1,4 +1,4 @@
-@import '../../../ui/common/styles/colors';
+@import '../../ui/common/styles/colors';
 
 $header-height: 50px;
 
@@ -25,6 +25,10 @@ header {
 section {
   height: calc(100% - #{$header-height});
 
+  .chat {
+    position: relative;
+  }
+
   .messages {
     display: flex;
     flex-direction: column;
@@ -32,6 +36,17 @@ section {
     .message {
       margin: 10px;
     }
+  }
+
+  .empty {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
   }
 
   .send-message {

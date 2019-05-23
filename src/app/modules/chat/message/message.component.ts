@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MessageTypesEnum } from 'src/app/modules/claims/chat/enum/message-types.enum';
-import { Message } from 'src/app/modules/claims/chat/models/message';
+import { MessageTypesEnum } from 'src/app/modules/chat/enum/message-types.enum';
+import { Message } from 'src/app/modules/chat/models/message';
 
 @Component({
   selector: 'dc-message',

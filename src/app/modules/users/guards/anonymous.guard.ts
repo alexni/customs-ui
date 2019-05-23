@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UserStatesEnum } from 'src/app/modules/users/enum/user-states.enum';
 import { IdentityService } from 'src/app/modules/users/identity.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class InactiveUserGuard implements CanActivate {
+export class AnonymousGuard implements CanActivate {
 
   constructor(private identityService: IdentityService, private router: Router) {
   }
@@ -19,14 +18,10 @@ export class InactiveUserGuard implements CanActivate {
       .loadCurrentUser()
       .pipe(
         map(user => {
-          if (!user) {
-            this.router.navigate(['/users/sign-in'], { queryParams: { returnUrl: state.url } });
+          if (user) {
+            this.router.navigate(['/']);
 
             return false;
-          }
-
-          if (user.state !== UserStatesEnum.BLOCKED) {
-            this.router.navigate(['/']);
           }
 
           return true;

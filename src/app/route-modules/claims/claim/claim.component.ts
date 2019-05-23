@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
-import { ChatComponent } from 'src/app/modules/claims/chat/chat.component';
+import { ChatComponent } from 'src/app/modules/chat/chat.component';
 import { ClaimsService } from 'src/app/modules/claims/claims.service';
 import { Claim } from 'src/app/modules/claims/models/claim';
 import { TitleService } from 'src/app/ui/common/services/title.service';

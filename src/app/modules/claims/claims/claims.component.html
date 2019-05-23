@@ -43,3 +43,10 @@
     {{ property.surname + ' ' + property.name + ' ' + property.patronymic }}
   </div>
 </ng-template>
+
+<ng-template
+    #serviceTypeTemplate
+    let-property="property"
+>
+  <dc-claim-service-type [serviceType]="property"></dc-claim-service-type>
+</ng-template>

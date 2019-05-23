@@ -1,5 +1,5 @@
-import { MessageStatesEnum } from 'src/app/modules/claims/chat/enum/message-states.enum';
-import { MessageTypesEnum } from 'src/app/modules/claims/chat/enum/message-types.enum';
+import { MessageStatesEnum } from 'src/app/modules/chat/enum/message-states.enum';
+import { MessageTypesEnum } from 'src/app/modules/chat/enum/message-types.enum';
 import { User } from 'src/app/modules/users/models/user';
 
 export class Message {

@@ -77,7 +77,7 @@ export class UsersEditorComponent implements OnDestroy {
         filter(result => !!result),
       )
       .subscribe(result => {
-        const users = [...this.usersList.users];
+        const users = [...  this.usersList.users];
 
         if (!user) {
           users.unshift(result!);
@@ -98,7 +98,7 @@ export class UsersEditorComponent implements OnDestroy {
   }
 
   public updateUserState(user: User, state: UserStatesEnum): void {
-    if (state === UserStatesEnum.INACTIVE) {
+    if (state === UserStatesEnum.BLOCKED) {
       if (!confirm('Вы действительно хотите деактивировать пользователя?')) {
         return;
       }
@@ -118,7 +118,7 @@ export class UsersEditorComponent implements OnDestroy {
         this.usersList.users = users;
         this.changeDetectorRef.markForCheck();
 
-        if (state === UserStatesEnum.INACTIVE) {
+        if (state === UserStatesEnum.BLOCKED) {
           this.notificationsService.success('Пользователь успешно деактивирован.');
         } else {
           this.notificationsService.success('Пользователь успешно активироваан.');

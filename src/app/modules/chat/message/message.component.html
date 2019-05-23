@@ -1,7 +1,7 @@
 <header>
   <div class="author">
     <ng-container *ngIf="message.broker; else driverNameTemplate;">
-      Брокер: {{ message!.broker.name }}
+      Брокер: {{ message!.broker.name || message!.broker.login }}
     </ng-container>
     <ng-template #driverNameTemplate>
       Водитель

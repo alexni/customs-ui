@@ -17,6 +17,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public title!: Observable<string>;
 
+  public loading = true;
+
   private subscriptions = new Subscription();
 
   constructor(
@@ -37,11 +39,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const changeSignedSubscription = this.identityService
-      .currentUser
-      .subscribe(user => {
-        this.currentUser = user;
-        this.changeDetectorRef.markForCheck();
-      });
+      .loadCurrentUser()
+      .subscribe(
+        user => {
+          this.loading = false;
+          this.currentUser = user;
+          this.changeDetectorRef.markForCheck();
+        },
+      );
     this.subscriptions.add(changeSignedSubscription);
   }
 

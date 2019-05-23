@@ -1,4 +1,4 @@
 export enum DeclarantStatesEnum {
-  ACTIVE = 'Active',
-  INACTIVE = 'Inactive',
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
 }

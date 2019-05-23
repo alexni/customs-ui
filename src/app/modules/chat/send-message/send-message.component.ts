@@ -12,7 +12,7 @@ import {
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { ChatService } from 'src/app/modules/claims/chat/chat.service';
+import { ChatService } from 'src/app/modules/chat/chat.service';
 
 @Component({
   selector: 'dc-send-message',

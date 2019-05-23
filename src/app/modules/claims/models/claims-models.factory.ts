@@ -26,7 +26,7 @@ export class ClaimsModelsFactory {
 
   public createDeclarantsListFromJson(json: DeclarantsListJson): DeclarantsList {
     return new DeclarantsList(
-      json.declarants.map(itemJson => this.createDeclarantFromJson(itemJson)),
+      json.list.map(itemJson => this.createDeclarantFromJson(itemJson)),
       json.total,
     );
   }
@@ -34,7 +34,6 @@ export class ClaimsModelsFactory {
   public createClaimFromJson(json: ClaimJson): Claim {
     return new Claim(
       json.id,
-      json.number,
       json.timestamp,
       json.state,
       this.createDeclarantFromJson(json.declarant),
@@ -46,15 +45,15 @@ export class ClaimsModelsFactory {
       json.carrier,
       json.number_car,
       json.number_trailer,
-      json.documents_photos,
+      json.document_photos,
       json.comment,
     );
   }
 
   public createClaimsListFromJson(json: ClaimsListJson): ClaimsList {
     return new ClaimsList(
-      json.content.map(itemJson => this.createClaimFromJson(itemJson)),
-      json.totalElements,
+      json.list.map(itemJson => this.createClaimFromJson(itemJson)),
+      json.total,
     );
   }
 

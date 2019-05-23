@@ -11,6 +11,7 @@ import { DeclarantStateComponent } from 'src/app/modules/claims/declarant-state/
 import { DeclarantsFiltersComponent } from 'src/app/modules/claims/declarants-filters/declarants-filters.component';
 import { DeclarantsComponent } from 'src/app/modules/claims/declarants/declarants.component';
 import { ClaimsModelsFactory } from 'src/app/modules/claims/models/claims-models.factory';
+import { ClaimServiceTypeComponent } from 'src/app/modules/claims/service-type/claim-service-type.component';
 import { SelectControlModule } from 'src/app/ui/form-controls/select-control/select-control.module';
 import { TextControlModule } from 'src/app/ui/form-controls/text-control/text-control.module';
 import { FormFieldsModule } from 'src/app/ui/form-fields/form-fields.module';
@@ -46,6 +47,7 @@ import { TableWithPaginatorModule } from 'src/app/ui/table-with-paginator/table-
     DeclarantsComponent,
     DeclarantsFiltersComponent,
     DeclarantStateComponent,
+    ClaimServiceTypeComponent,
   ],
 
   exports: [

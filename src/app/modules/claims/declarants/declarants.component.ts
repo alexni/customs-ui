@@ -63,7 +63,7 @@ export class DeclarantsComponent implements OnInit {
   private createPaginatorSource(): void {
     this.paginatorSource = new TableDataSource<Declarant>((offset: number, limit: number) => this
       .claimsService
-      .loadDelarantsList(offset, limit, this.filters.query),
+      .loadDeclarantsList(offset, limit, this.filters.query),
     );
   }
 

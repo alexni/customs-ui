@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { AngularSplitModule } from 'angular-split';
-import { ChatModule } from 'src/app/modules/claims/chat/chat.module';
+import { ChatModule } from 'src/app/modules/chat/chat.module';
 import { ClaimsModule } from 'src/app/modules/claims/claims.module';
 import { ClaimComponent } from 'src/app/route-modules/claims/claim/claim.component';
 import { ClaimsListComponent } from 'src/app/route-modules/claims/claims/claims-list.component';

@@ -26,13 +26,13 @@
                 *ngSwitchCase="USER_STATES_ENUM.ACTIVE"
                 mat-button
                 color="warn"
-                (click)="updateUserState(entity, USER_STATES_ENUM.INACTIVE)"
+                (click)="updateUserState(entity, USER_STATES_ENUM.BLOCKED)"
             >
               деактивировать
             </button>
 
             <button
-                *ngSwitchCase="USER_STATES_ENUM.INACTIVE"
+                *ngSwitchCase="USER_STATES_ENUM.BLOCKED"
                 mat-button
                 color="primary"
                 (click)="updateUserState(entity, USER_STATES_ENUM.ACTIVE)"

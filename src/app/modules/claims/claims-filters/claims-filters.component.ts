@@ -33,7 +33,7 @@ export class ClaimsFiltersComponent implements OnChanges, OnDestroy {
   }
 
   private get user(): User {
-    return this.identityService.currentUser.value!;
+    return this.identityService.getCurrentUser()!;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

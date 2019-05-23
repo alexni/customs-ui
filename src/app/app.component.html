@@ -3,5 +3,8 @@
 </header>
 
 <section>
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="initialized; else loaderTemplate;"></router-outlet>
+  <ng-template #loaderTemplate>
+    <dc-loader-with-backdrop></dc-loader-with-backdrop>
+  </ng-template>
 </section>

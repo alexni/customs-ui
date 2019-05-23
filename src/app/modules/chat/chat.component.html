@@ -10,6 +10,7 @@
     <as-split-area
         [size]="75"
         [order]="0"
+        class="chat"
         #messages
     >
       <div class="messages">
@@ -19,6 +20,12 @@
         >
           <dc-message [message]="message"></dc-message>
         </div>
+      </div>
+      <div
+          *ngIf="!messagesList?.messages?.length"
+          class="empty"
+      >
+        Сообщений еще нет.
       </div>
     </as-split-area>
 

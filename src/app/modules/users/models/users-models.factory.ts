@@ -25,7 +25,7 @@ export class UsersModelsFactory {
   public createUserFromJson(json: UserJson): User {
     return this.createUser(
       json.id,
-      json.state || UserStatesEnum.INACTIVE,
+      json.state || UserStatesEnum.BLOCKED,
       json.role,
       json.login,
       json.name,

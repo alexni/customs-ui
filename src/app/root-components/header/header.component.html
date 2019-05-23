@@ -5,7 +5,12 @@
 
   <div class="toolbar">
     <h1 class="title">
-      {{ title | async }}
+      <ng-container *ngIf="loading; else titleTemplate;">
+        Подождите...
+      </ng-container>
+      <ng-template #titleTemplate>
+        {{ title | async }}
+      </ng-template>
     </h1>
 
     <div class="actions">
@@ -20,11 +25,11 @@
       </a>
 
      <a
-          *ngIf="isSigned"
-          routerLink="/claims/declarants"
-          mat-button
-          class="item"
-      >
+         *ngIf="isSigned"
+         routerLink="/claims/declarants"
+         mat-button
+         class="item"
+     >
         <mat-icon>person</mat-icon>
         <span class="title">Декларанты</span>
       </a>
@@ -39,15 +44,17 @@
         <span class="title">Пользователи</span>
       </a>
 
-      <a
-          *ngIf="!isSigned; else logoutTemplate;"
-          routerLink="/users/sign-in"
-          mat-button
-          class="item"
-      >
-        <mat-icon>perm_identity</mat-icon>
-        <span class="title">Авторизация</span>
-      </a>
+      <ng-container *ngIf="!loading">
+        <a
+            *ngIf="!isSigned; else logoutTemplate;"
+            routerLink="/users/sign-in"
+            mat-button
+            class="item"
+        >
+          <mat-icon>perm_identity</mat-icon>
+          <span class="title">Авторизация</span>
+        </a>
+      </ng-container>
     </div>
 
     <ng-template #logoutTemplate>
