@@ -20,10 +20,18 @@
       class="state"
   >
     <dc-option [value]="null">все статусы</dc-option>
-    <dc-option [value]="CLAIM_STATES_ENUM.START">в работе</dc-option>
-    <dc-option [value]="CLAIM_STATES_ENUM.ERROR">на доработке</dc-option>
-    <dc-option [value]="CLAIM_STATES_ENUM.REJECT">отвергнута</dc-option>
-    <dc-option [value]="CLAIM_STATES_ENUM.SUCCESS">завершена</dc-option>
+    <dc-option [value]="CLAIM_STATES_ENUM.START">
+      <dc-claim-state [state]="CLAIM_STATES_ENUM.START"></dc-claim-state>
+    </dc-option>
+    <dc-option [value]="CLAIM_STATES_ENUM.ERROR">
+      <dc-claim-state [state]="CLAIM_STATES_ENUM.ERROR"></dc-claim-state>
+    </dc-option>
+    <dc-option [value]="CLAIM_STATES_ENUM.REJECT">
+      <dc-claim-state [state]="CLAIM_STATES_ENUM.REJECT"></dc-claim-state>
+    </dc-option>
+    <dc-option [value]="CLAIM_STATES_ENUM.SUCCESS">
+      <dc-claim-state [state]="CLAIM_STATES_ENUM.SUCCESS"></dc-claim-state>
+    </dc-option>
   </dc-select-control>
 
   <button

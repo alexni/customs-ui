@@ -6,11 +6,12 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  TemplateRef,
+  TemplateRef, ViewChild,
 } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { PaginatorComponent } from 'src/app/ui/paginator/paginator.component';
 import { TableData } from 'src/app/ui/table-with-paginator/table-data.interface';
 import { TableDataSource } from 'src/app/ui/table-with-paginator/table-data.source';
 import { Column } from 'src/app/ui/table/column';
@@ -31,6 +32,9 @@ export class TableWithPaginatorComponent<T> implements OnChanges {
 
   @ContentChild('actions')
   public actionsTemplate?: TemplateRef<any>;
+
+  @ViewChild(PaginatorComponent)
+  public paginatorComponent!: PaginatorComponent;
 
   public page = 1;
 
@@ -54,6 +58,10 @@ export class TableWithPaginatorComponent<T> implements OnChanges {
   }
 
   public setPageData(event: PageEvent): void {
+    if (event.pageIndex + 1 === this.page && event.pageSize === this.pageSize) {
+      return;
+    }
+
     this.pageSize = event.pageSize;
     this.page = event.pageIndex + 1;
 
@@ -62,6 +70,7 @@ export class TableWithPaginatorComponent<T> implements OnChanges {
 
   public reloadList(): void {
     this.page = 1;
+    this.paginatorComponent.resetPage();
     this.loadList();
   }
 

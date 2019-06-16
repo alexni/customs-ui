@@ -35,6 +35,9 @@ export class ClaimsComponent implements OnInit {
   @ViewChild('serviceTypeTemplate')
   private serviceTypeTemplate!: TemplateRef<any>;
 
+  @ViewChild('stateTemplate')
+  private stateTemplate!: TemplateRef<any>;
+
   constructor(
     private claimsService: ClaimsService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -49,7 +52,7 @@ export class ClaimsComponent implements OnInit {
       new Column('carrier', 'Перевозчик'),
       new Column('declarant', 'Декларант', this.declarantTemplate),
       new Column('timestamp', 'Дата создания', this.timestampTemplate),
-      new Column('state', 'Статус заявки'),
+      new Column('state', 'Статус заявки', this.stateTemplate),
     ];
     this.createPaginatorSource();
   }

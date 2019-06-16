@@ -1,16 +1,24 @@
 <textarea
     class="control"
     placeholder="Введите сообщение"
+    [attr.maxlength]="MAX_LENGTH"
     [formControl]="control"
 ></textarea>
 
+<div
+    class="length"
+    [class.reached]="characterLimitReached"
+>
+  {{ currentLength }} / {{ MAX_LENGTH }}
+</div>
+
 <div class="send">
   <button
-    mat-mini-fab
-    color="primary"
-    class="send-button"
-    [disabled]="control.invalid || sending"
-    (click)="sendMessage()"
+      mat-mini-fab
+      color="primary"
+      class="send-button"
+      [disabled]="control.invalid || sending"
+      (click)="sendMessage()"
   >
     <mat-icon>chevron_right</mat-icon>
   </button>

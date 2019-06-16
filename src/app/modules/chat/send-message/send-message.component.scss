@@ -1,4 +1,6 @@
-$button-size: 44px;
+@import '../../../ui/common/styles/colors';
+
+$button-size: 46px;
 
 :host {
   $padding-top: 5px;
@@ -28,4 +30,17 @@ textarea {
   justify-content: center;
   width: $button-size;
   height: 100%;
+}
+
+.length {
+  display: block;
+  position: absolute;
+  right: 3px;
+  bottom: 5px;
+  font-size: 11px;
+  color: $light-color;
+
+  &.reached {
+    color: $danger-color;
+  }
 }

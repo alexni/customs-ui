@@ -22,6 +22,8 @@ import { ChatService } from 'src/app/modules/chat/chat.service';
 })
 export class SendMessageComponent implements OnChanges, OnDestroy {
 
+  public readonly MAX_LENGTH = 4096;
+
   @Input()
   public claimId!: string;
 
@@ -40,6 +42,14 @@ export class SendMessageComponent implements OnChanges, OnDestroy {
     private chatService: ChatService,
   ) {
     this.createControl();
+  }
+
+  public get currentLength(): number {
+    return (this.control.value || '').length;
+  }
+
+  public get characterLimitReached(): boolean {
+    return this.currentLength === this.MAX_LENGTH;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

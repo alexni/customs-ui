@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { PageEvent } from '@angular/material';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material';
 
 @Component({
   selector: 'dc-paginator',
@@ -19,4 +19,15 @@ export class PaginatorComponent {
 
   @Output()
   public readonly changePageData = new EventEmitter<PageEvent>();
+
+  @ViewChild(MatPaginator)
+  public matPaginator!: MatPaginator;
+
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+  }
+
+  public resetPage(): void {
+    this.matPaginator.firstPage();
+    this.changeDetectorRef.markForCheck();
+  }
 }
