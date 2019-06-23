@@ -1,5 +1,4 @@
 $select-width: 200px;
-$apply-button-width: 100px;
 $indent: 10px;
 
 :host {
@@ -15,7 +14,7 @@ form {
 }
 
 .query {
-  width: calc(100% - #{$select-width * 2 + $apply-button-width + $indent * 3});
+  width: calc(100% - #{$select-width * 2 + $indent * 3});
   margin-right: $indent;
 }
 
@@ -23,8 +22,4 @@ form {
 .only-ma-claims {
   width: $select-width;
   margin-right: $indent;
-}
-
-.apply-button {
-  width: $apply-button-width;
 }

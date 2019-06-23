@@ -19,6 +19,7 @@ export class UserDialogService {
         disableClose: true,
         panelClass: [
           'mat-dialog-no-padding',
+          'mat-dialog-overflow-auto',
         ],
         data: {
           user,

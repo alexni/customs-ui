@@ -33,8 +33,11 @@ export class ClaimsService {
   ): Observable<ClaimsList> {
     let params = new HttpParams()
       .set('offset', String(offset))
-      .set('limit', String(limit))
-      .set('manager_id', managerId ? managerId : '0');
+      .set('limit', String(limit));
+
+    if (managerId) {
+      params = params.set('manager_id', managerId);
+    }
 
     if (query) {
       params = params.set('query', query);

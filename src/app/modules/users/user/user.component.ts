@@ -28,6 +28,8 @@ export class UserComponent implements OnChanges, OnDestroy {
 
   public readonly USER_ROLES_ENUM = UserRolesEnum;
 
+  public readonly NAME_MAX_LENGTH = 100;
+
   @Input()
   public user!: User | null;
 
@@ -110,7 +112,7 @@ export class UserComponent implements OnChanges, OnDestroy {
       login: [null],
       password: [null],
       role: [null, [Validators.required]],
-      name: [null],
+      name: [null, [Validators.maxLength(this.NAME_MAX_LENGTH)]],
       email: [null],
     });
     this.changeDetectorRef.markForCheck();

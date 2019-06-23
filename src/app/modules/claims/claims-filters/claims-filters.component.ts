@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { isEqual } from 'lodash';
 import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { ClaimsFilters } from 'src/app/modules/claims/claims-filters/claims.filters';
 import { ClaimStatesEnum } from 'src/app/modules/claims/enums/claim-states.enum';
 import { IdentityService } from 'src/app/modules/users/identity.service';
@@ -23,7 +25,9 @@ export class ClaimsFiltersComponent implements OnChanges, OnDestroy {
 
   public form!: FormGroup;
 
-  public subscriptions = new Subscription();
+  private subscriptions = new Subscription();
+
+  private lastValue = new ClaimsFilters();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,6 +56,12 @@ export class ClaimsFiltersComponent implements OnChanges, OnDestroy {
     const managerId = this.form.get('onlyMyClaims')!.value ? this.user.id : null;
 
     this.filters = new ClaimsFilters(query && query.length ? query : null, managerId, state);
+
+    if (isEqual(this.filters, this.lastValue)) {
+      return;
+    }
+
+    this.lastValue = Object.assign(new ClaimsFilters(), this.filters);
     this.changeFilters.emit(this.filters);
   }
 
@@ -61,6 +71,27 @@ export class ClaimsFiltersComponent implements OnChanges, OnDestroy {
       state: [null],
       onlyMyClaims: [null],
     });
+
+    const changeStateSubscription = this.form
+      .get('state')!
+      .valueChanges
+      .subscribe(() => this.applyFilters());
+    this.subscriptions.add(changeStateSubscription);
+
+    const changeOnlyMyClaimsSubscription = this.form
+      .get('onlyMyClaims')!
+      .valueChanges
+      .subscribe(() => this.applyFilters());
+    this.subscriptions.add(changeOnlyMyClaimsSubscription);
+
+    const changeQuerySubscription = this.form
+      .get('query')!
+      .valueChanges
+      .pipe(
+        debounceTime(200),
+      )
+      .subscribe(() => this.applyFilters());
+    this.subscriptions.add(changeQuerySubscription);
   }
 
   private refreshForm(): void {

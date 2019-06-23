@@ -58,6 +58,9 @@
     </ng-container>
 
     <ng-container sqFormFieldErrors>
+      <dc-control-error *ngIf="hasError('name', 'maxlength')">
+        Длина имени должна быть не более {{ NAME_MAX_LENGTH }} символов.
+      </dc-control-error>
     </ng-container>
   </dc-vertical-form-field>
 
