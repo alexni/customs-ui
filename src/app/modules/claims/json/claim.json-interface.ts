@@ -9,7 +9,7 @@ export interface ClaimJson {
   manager_ids: string[];
   is_have_new_message: boolean;
   declarant: DeclarantJson;
-  service_type: ClaimServiceTypesEnum;
+  service_types: ClaimServiceTypesEnum[];
   checkpoint: string;
   service_payer: string;
   carrier: string;

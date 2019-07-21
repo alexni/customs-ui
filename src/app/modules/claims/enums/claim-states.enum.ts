@@ -8,7 +8,7 @@ export enum ClaimStatesEnum {
 export const CLAIM_STATES_LABELS = {
   [ClaimStatesEnum.START]: 'в работе',
   [ClaimStatesEnum.ERROR]: 'на доработке',
-  [ClaimStatesEnum.SUCCESS]: 'отвергнута',
-  [ClaimStatesEnum.REJECT]: 'завершена',
+  [ClaimStatesEnum.SUCCESS]: 'завершена',
+  [ClaimStatesEnum.REJECT]: 'отвергнута',
 };
 Object.freeze(CLAIM_STATES_LABELS);

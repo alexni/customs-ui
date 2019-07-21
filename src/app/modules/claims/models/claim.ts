@@ -10,7 +10,7 @@ export class Claim {
     public declarant: Declarant,
     public managerIds: string[],
     public isHaveNewMessage: boolean,
-    public serviceType: ClaimServiceTypesEnum,
+    public serviceTypes: ClaimServiceTypesEnum[],
     public checkpoint: string,
     public servicePayer: string,
     public carrier: string,

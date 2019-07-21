@@ -39,7 +39,7 @@ export class ClaimsModelsFactory {
       this.createDeclarantFromJson(json.declarant),
       json.manager_ids,
       json.is_have_new_message,
-      json.service_type,
+      json.service_types,
       json.checkpoint,
       json.service_payer,
       json.carrier,

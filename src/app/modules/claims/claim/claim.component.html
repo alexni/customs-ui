@@ -76,10 +76,17 @@
 
     <div class="data-row">
       <div class="label">
-        Вид операции:
+        Виды операций:
       </div>
       <div class="value">
-        <dc-claim-service-type [serviceType]="claim.serviceType"></dc-claim-service-type>
+        <ng-container *ngFor="let serviceType of claim.serviceTypes; let last = last;">
+          <dc-claim-service-type
+              [serviceType]="serviceType"
+          ></dc-claim-service-type><span
+            *ngIf="!last"
+            class="separator"
+        >,</span>
+        </ng-container>
       </div>
     </div>
 

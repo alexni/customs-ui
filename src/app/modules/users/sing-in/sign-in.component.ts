@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { IdentityService } from 'src/app/modules/users/identity.service';
@@ -25,6 +25,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
+    private route: ActivatedRoute,
     private notificationsService: NotificationsService,
   ) {
   }
@@ -48,7 +49,7 @@ export class SignInComponent implements OnInit, OnDestroy {
         finalize(() => this.setLoading(false)),
       )
       .subscribe(
-        () => this.router.navigate(['/']),
+        () => this.router.navigate([this.route.snapshot.queryParams['returnUrl'] || '/']),
         () => this.notificationsService.error('Пользователь с такими данными не найден.'),
       );
     this.subscriptions.add(signInSubscription);
