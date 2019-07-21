@@ -88,15 +88,11 @@ section {
   height: calc(100% - #{$header-height + $padding * 2});
   padding: $padding;
   overflow: auto;
-
-  .separator {
-    display: inline-block;
-    padding-right: 5px;
-  }
 }
 
 .label {
   font-weight: 600;
+  width: 145px;
 }
 
 .panel {

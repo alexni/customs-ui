@@ -79,14 +79,9 @@
         Виды операций:
       </div>
       <div class="value">
-        <ng-container *ngFor="let serviceType of claim.serviceTypes; let last = last;">
-          <dc-claim-service-type
-              [serviceType]="serviceType"
-          ></dc-claim-service-type><span
-            *ngIf="!last"
-            class="separator"
-        >,</span>
-        </ng-container>
+        <div class="service-type" *ngFor="let serviceType of claim.serviceTypes;">
+          <dc-claim-service-type [serviceType]="serviceType"></dc-claim-service-type>
+        </div>
       </div>
     </div>
 
