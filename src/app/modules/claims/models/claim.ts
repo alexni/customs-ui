@@ -12,6 +12,7 @@ export class Claim {
     public isHaveNewMessage: boolean,
     public serviceTypes: ClaimServiceTypesEnum[],
     public checkpoint: string,
+    public contractNumber: string,
     public servicePayer: string,
     public carrier: string,
     public numberCar: string,

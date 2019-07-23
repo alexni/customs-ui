@@ -41,6 +41,7 @@ export class ClaimsModelsFactory {
       json.is_have_new_message,
       json.service_types,
       json.checkpoint,
+      json.contract_number,
       json.service_payer,
       json.carrier,
       json.number_car,

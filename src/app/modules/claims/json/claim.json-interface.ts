@@ -11,6 +11,7 @@ export interface ClaimJson {
   declarant: DeclarantJson;
   service_types: ClaimServiceTypesEnum[];
   checkpoint: string;
+  contract_number: string;
   service_payer: string;
   carrier: string;
   number_car: string;
