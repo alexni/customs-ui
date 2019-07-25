@@ -9,9 +9,9 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { defer } from 'lodash';
+import { defer, isEqual } from 'lodash';
 import { Subject, Subscription, timer } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { ChatService } from 'src/app/modules/chat/chat.service';
 import { MessagesList } from 'src/app/modules/chat/models/messages-list';
 import { IdentityService } from 'src/app/modules/users/identity.service';
@@ -111,6 +111,7 @@ export class ChatComponent implements OnChanges, OnDestroy {
 
           return list;
         }),
+        filter(list => !isEqual(list, this.messagesList)),
       )
       .subscribe(list => {
         this.messagesList = list;

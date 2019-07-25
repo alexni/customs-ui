@@ -13,5 +13,26 @@
 </header>
 
 <section class="text">
-  {{ message.text }}
+  <ng-container *ngFor="let textPart of textParts">
+    <a
+        *ngIf="textPart.isUrl; else textSimpleTemplate"
+        class="text-url"
+        [attr.href]="textPart.value"
+        target="_blank"
+    >
+      {{ textPart.value }}
+    </a>
+    <ng-template #textSimpleTemplate>
+      <span class="text-simple">
+        {{ textPart.value }}
+      </span>
+    </ng-template>
+  </ng-container>
 </section>
+
+<footer class="preview">
+  <dc-url-preview
+      *ngFor="let url of urls"
+      [url]="url"
+  ></dc-url-preview>
+</footer>

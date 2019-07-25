@@ -32,9 +32,6 @@ export class ClaimsComponent implements OnInit {
   @ViewChild('declarantTemplate')
   private declarantTemplate!: TemplateRef<any>;
 
-  @ViewChild('serviceTypeTemplate')
-  private serviceTypeTemplate!: TemplateRef<any>;
-
   @ViewChild('stateTemplate')
   private stateTemplate!: TemplateRef<any>;
 
@@ -47,7 +44,6 @@ export class ClaimsComponent implements OnInit {
   public ngOnInit(): void {
     this.columns = [
       new Column('id', 'Номер заявки'),
-      new Column('serviceType', 'Вид услуги', this.serviceTypeTemplate),
       new Column('checkpoint', 'Пункт пропуска'),
       new Column('carrier', 'Перевозчик'),
       new Column('declarant', 'Декларант', this.declarantTemplate),

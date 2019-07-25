@@ -1,0 +1,15 @@
+<ng-container [ngSwitch]="type">
+
+  <a
+      *ngSwitchCase="URL_TYPES_ENUM.IMAGE"
+      class="image"
+      [attr.href]="url"
+      target="_blank"
+  >
+        <img
+            [attr.src]="url"
+            alt="url"
+        />
+  </a>
+
+</ng-container>
