@@ -34,7 +34,7 @@
         [required]="true"
     ></dc-form-field-label>
 
-    <ng-container sqFormFieldControl>
+    <ng-container dcFormFieldControl>
       <dc-select-control formControlName="role">
         <dc-option [value]="null">выбрать</dc-option>
         <dc-option [value]="USER_ROLES_ENUM.BROKER">
@@ -46,18 +46,18 @@
       </dc-select-control>
     </ng-container>
 
-    <ng-container sqFormFieldErrors>
+    <ng-container dcFormFieldErrors>
     </ng-container>
   </dc-vertical-form-field>
 
   <dc-vertical-form-field class="field">
     <dc-form-field-label label="Имя"></dc-form-field-label>
 
-    <ng-container sqFormFieldControl>
+    <ng-container dcFormFieldControl>
       <dc-text-control formControlName="name"></dc-text-control>
     </ng-container>
 
-    <ng-container sqFormFieldErrors>
+    <ng-container dcFormFieldErrors>
       <dc-control-error *ngIf="hasError('name', 'maxlength')">
         Длина имени должна быть не более {{ NAME_MAX_LENGTH }} символов.
       </dc-control-error>
@@ -67,11 +67,11 @@
   <dc-vertical-form-field class="field">
     <dc-form-field-label label="E-mail"></dc-form-field-label>
 
-    <ng-container sqFormFieldControl>
+    <ng-container dcFormFieldControl>
       <dc-text-control formControlName="email"></dc-text-control>
     </ng-container>
 
-    <ng-container sqFormFieldErrors>
+    <ng-container dcFormFieldErrors>
       <dc-control-error *ngIf="hasError('email', 'email')">
         Некорректный формат.
       </dc-control-error>

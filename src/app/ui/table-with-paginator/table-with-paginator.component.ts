@@ -6,7 +6,8 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  TemplateRef, ViewChild,
+  TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { PageEvent } from '@angular/material';
 import { Subscription } from 'rxjs';
@@ -15,6 +16,7 @@ import { PaginatorComponent } from 'src/app/ui/paginator/paginator.component';
 import { TableData } from 'src/app/ui/table-with-paginator/table-data.interface';
 import { TableDataSource } from 'src/app/ui/table-with-paginator/table-data.source';
 import { Column } from 'src/app/ui/table/column';
+import { defaultTrClassName, TrClassNameFn } from 'src/app/ui/table/tr-class-name.function';
 
 @Component({
   selector: 'dc-table-with-paginator',
@@ -29,6 +31,9 @@ export class TableWithPaginatorComponent<T> implements OnChanges {
 
   @Input()
   public dataSource!: TableDataSource<T>;
+
+  @Input()
+  public trClassName: TrClassNameFn<T> = defaultTrClassName;
 
   @ContentChild('actions')
   public actionsTemplate?: TemplateRef<any>;

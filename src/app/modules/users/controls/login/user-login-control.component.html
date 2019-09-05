@@ -4,11 +4,11 @@
     [required]="true"
   ></dc-form-field-label>
 
-  <ng-container sqFormFieldControl>
+  <ng-container dcFormFieldControl>
     <dc-text-control [formControl]="control"></dc-text-control>
   </ng-container>
 
-  <ng-container sqFormFieldErrors>
+  <ng-container dcFormFieldErrors>
     <dc-control-error *ngIf="hasError('required')">
       Логин обязателен для заполнения.
     </dc-control-error>

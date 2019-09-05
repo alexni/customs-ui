@@ -7,6 +7,7 @@ import { ClaimsService } from 'src/app/modules/claims/claims.service';
 import { Claim } from 'src/app/modules/claims/models/claim';
 import { TitleService } from 'src/app/ui/common/services/title.service';
 
+// tslint:disable:enforce-component-selector
 @Component({
   templateUrl: './claim.component.html',
   styleUrls: ['./claim.component.scss'],

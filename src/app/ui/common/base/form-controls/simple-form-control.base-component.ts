@@ -12,6 +12,7 @@ import {
   ValidateEventFn,
 } from 'src/app/ui/common/helpers/control-value-accessor.defaults';
 
+// tslint:disable:contextual-life-cycle
 @Injectable()
 export abstract class SimpleFormControlBaseComponent<TInputData, TValueData> implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 

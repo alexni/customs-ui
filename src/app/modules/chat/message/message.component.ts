@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { uniq } from 'lodash';
 import { MessageTypesEnum } from 'src/app/modules/chat/enum/message-types.enum';
 import { Message } from 'src/app/modules/chat/models/message';
 import { PartOfString } from 'src/app/ui/urls-parser/part-of-string';
 import { UrlsParserService } from 'src/app/ui/urls-parser/urls-parser.service';
-import { uniq } from 'lodash';
 
 @Component({
   selector: 'dc-message',

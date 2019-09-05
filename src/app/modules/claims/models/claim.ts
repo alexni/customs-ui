@@ -21,4 +21,9 @@ export class Claim {
     public comment: string,
   ) {
   }
+
+  public get isNew(): boolean {
+    return this.state === ClaimStatesEnum.START && this.managerIds.length === 0;
+  }
+
 }

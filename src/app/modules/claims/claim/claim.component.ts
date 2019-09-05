@@ -53,6 +53,14 @@ export class ClaimComponent implements OnChanges {
     }
   }
 
+  public start(): void {
+    if (!confirm('Вы действительно хотите взять заявку в работу?')) {
+      return;
+    }
+
+    this.changeClaimState(ClaimStatesEnum.START);
+  }
+
   public error(): void {
     if (!confirm('Вы действительно хотите отправить заявку на доработку?')) {
       return;
@@ -114,11 +122,4 @@ export class ClaimComponent implements OnChanges {
     this.isDeclarantActive = this.claim.declarant.state === DeclarantStatesEnum.ACTIVE;
   }
 
-}
-
-
-function test() {
-  setTimeout(() => console.log(1));
-  Promise.resolve().then(() => console.log(2));
-  console.log(3);
 }

@@ -54,6 +54,7 @@
     <tr
         *matRowDef="let row; columns: displayedColumns;"
         mat-row
+        [className]="trClassName(row)"
     ></tr>
   </table>
 </div>

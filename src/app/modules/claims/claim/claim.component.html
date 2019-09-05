@@ -1,33 +1,44 @@
 <header [ngSwitch]="claim.state">
   <div class="states">
     <ng-container *ngSwitchCase="CLAIM_STATES_ENUM.START">
-      <button
-          mat-raised-button
-          color="accent"
-          [disabled]="!isDeclarantActive || !hasBrokerActivityInChat"
-          (click)="error()"
-      >
-        на доработку
-      </button>
+      <ng-container *ngIf="claim.isNew; else notNewTemplate;">
+        <button
+            mat-raised-button
+            color="accent"
+            (click)="start()"
+        >
+          Взять в работу
+        </button>
+      </ng-container>
 
-      <button
-          mat-raised-button
-          color="primary"
-          [disabled]="!isDeclarantActive"
-          (click)="success()"
-      >
-        завершить
-      </button>
+      <ng-template #notNewTemplate>
+        <button
+            mat-raised-button
+            color="accent"
+            [disabled]="!isDeclarantActive || !hasBrokerActivityInChat"
+            (click)="error()"
+        >
+          на доработку
+        </button>
 
-      <button
-          mat-raised-button
-          color="warn"
-          [disabled]="!isDeclarantActive"
-          (click)="reject()"
-      >
-        отвергнуть
-      </button>
+        <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!isDeclarantActive"
+            (click)="success()"
+        >
+          завершить
+        </button>
 
+        <button
+            mat-raised-button
+            color="warn"
+            [disabled]="!isDeclarantActive"
+            (click)="reject()"
+        >
+          отвергнуть
+        </button>
+      </ng-template>
     </ng-container>
 
     <div
@@ -172,7 +183,7 @@
         Паспорт:
       </div>
       <div class="value">
-        {{ claim.declarant.passportSeries + ' ' + claim.declarant.passportNumber}}, дата выдачи {{ claim.declarant.passportDate }}
+        {{ claim.declarant.passportSeries + ' ' + claim.declarant.passportNumber }}, дата выдачи {{ claim.declarant.passportDate }}
       </div>
     </div>
 

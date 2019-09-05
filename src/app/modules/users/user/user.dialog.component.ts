@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, Type } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { UserDialogData } from 'src/app/modules/users/user/user.dialog-data';
 
+// tslint:disable:enforce-component-selector
 @Component({
   template: `
     <dc-user

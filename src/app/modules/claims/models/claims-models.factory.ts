@@ -33,7 +33,7 @@ export class ClaimsModelsFactory {
 
   public createClaimFromJson(json: ClaimJson): Claim {
     return new Claim(
-      json.id,
+      String(json.id),
       json.timestamp,
       json.state,
       this.createDeclarantFromJson(json.declarant),

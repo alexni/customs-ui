@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[sqFormFieldControl]',
+  selector: '[dcFormFieldControl]',
 })
 export class FormFieldControlDirective {
 }

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, Type } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { PasswordEditorDialogData } from 'src/app/modules/users/password-editor/password-editor.dialog-data';
 
+// tslint:disable:enforce-component-selector
 @Component({
   template: `
     <dc-password-editor

@@ -21,3 +21,19 @@ $filters-height: 70px;
 .table {
   height: calc(100% - #{$filters-height});
 }
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .new-message mat-icon {
+    color: $danger-color;
+  }
+}
+
+/deep/ {
+  .claim-new {
+    background: $new-color;
+  }
+}

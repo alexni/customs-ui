@@ -9,6 +9,7 @@
   <dc-table-with-paginator
       *ngIf="paginatorSource"
       [columns]="columns"
+      [trClassName]="trClassName"
       [dataSource]="paginatorSource"
   >
     <ng-container *ngIf="actionsTemplate">
@@ -22,7 +23,6 @@
         ></ng-container>
       </ng-template>
     </ng-container>
-
   </dc-table-with-paginator>
 </section>
 
@@ -30,7 +30,9 @@
     #timestampTemplate
     let-property="property"
 >
-  <div class="date">
+  <div
+      class="date"
+  >
     {{ property | date:'dd.MM.yyyy' }}
   </div>
 </ng-template>
@@ -39,7 +41,9 @@
     #declarantTemplate
     let-property="property"
 >
-  <div class="date">
+  <div
+      class="date"
+  >
     {{ property.surname + ' ' + property.name + ' ' + property.patronymic }}
   </div>
 </ng-template>
@@ -47,6 +51,19 @@
 <ng-template
     #stateTemplate
     let-property="property"
+    let-entity="entity"
 >
-  <dc-claim-state [state]="property"></dc-claim-state>
+  <div
+      class="status"
+  >
+    <div class="state">
+      <dc-claim-state [state]="property"></dc-claim-state>
+    </div>
+    <div
+        *ngIf="entity.isHaveNewMessage"
+        class="new-message"
+    >
+      <mat-icon>email</mat-icon>
+    </div>
+  </div>
 </ng-template>

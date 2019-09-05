@@ -5,6 +5,7 @@ import { Claim } from 'src/app/modules/claims/models/claim';
 import { TableDataSource } from 'src/app/ui/table-with-paginator/table-data.source';
 import { TableWithPaginatorComponent } from 'src/app/ui/table-with-paginator/table-with-paginator.component';
 import { Column } from 'src/app/ui/table/column';
+import { TrClassNameFn } from 'src/app/ui/table/tr-class-name.function';
 
 @Component({
   selector: 'dc-claims',
@@ -57,6 +58,14 @@ export class ClaimsComponent implements OnInit {
     this.filters = filters;
     this.changeDetectorRef.markForCheck();
     this.tableComponent.reloadList();
+  }
+
+  public trClassName: TrClassNameFn<Claim> = (entity: Claim): string => {
+    if (entity.isNew) {
+      return 'claim-new';
+    }
+
+    return '';
   }
 
   private createPaginatorSource(): void {

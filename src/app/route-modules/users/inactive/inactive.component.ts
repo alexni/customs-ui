@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TitleService } from 'src/app/ui/common/services/title.service';
 
+// tslint:disable:enforce-component-selector
 @Component({
   templateUrl: './inactive.component.html',
   styleUrls: ['./inactive.component.scss'],
