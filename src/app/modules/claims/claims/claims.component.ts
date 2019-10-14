@@ -25,7 +25,7 @@ import { TrClassNameFn } from 'src/app/ui/table/tr-class-name.function';
 })
 export class ClaimsComponent implements OnInit, OnDestroy {
 
-  private static readonly POOLING_INTERVAL = 3000;
+  private static readonly POOLING_INTERVAL = 30000;
 
   public columns: Column[] = [];
 
@@ -95,7 +95,7 @@ export class ClaimsComponent implements OnInit, OnDestroy {
   }
 
   private startPooling(): void {
-    this.poolingSubscription = timer(0, ClaimsComponent.POOLING_INTERVAL)
+    this.poolingSubscription = timer(ClaimsComponent.POOLING_INTERVAL, ClaimsComponent.POOLING_INTERVAL)
         .subscribe(() => this.tableComponent.loadList(false));
   }
 
