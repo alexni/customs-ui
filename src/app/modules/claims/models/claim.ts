@@ -26,4 +26,24 @@ export class Claim {
     return this.state === ClaimStatesEnum.START && this.managerIds.length === 0;
   }
 
+  public lazyClone(): Claim {
+    return new Claim(
+      this.id,
+      this.timestamp,
+      this.state,
+      this.declarant,
+      this.managerIds,
+      this.isHaveNewMessage,
+      this.serviceTypes,
+      this.checkpoint,
+      this.contractNumber,
+      this.servicePayer,
+      this.carrier,
+      this.numberCar,
+      this.numberTrailer,
+      this.documentsPhotos,
+      this.comment,
+    );
+  }
+
 }

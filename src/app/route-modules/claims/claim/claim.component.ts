@@ -44,6 +44,11 @@ export class ClaimComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  public changeClaim(claim: Claim): void {
+    this.claim = claim.lazyClone();
+    this.changeDetectorRef.markForCheck();
+  }
+
   private initialChangeClaimId(): void {
     const changeClaimIdSubscription = this.activatedRoute
       .params

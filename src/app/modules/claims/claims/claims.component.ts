@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ContentChild,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { Subscription, timer } from 'rxjs';
 import { ClaimsFilters } from 'src/app/modules/claims/claims-filters/claims.filters';
 import { ClaimsService } from 'src/app/modules/claims/claims.service';
 import { Claim } from 'src/app/modules/claims/models/claim';
@@ -13,7 +23,9 @@ import { TrClassNameFn } from 'src/app/ui/table/tr-class-name.function';
   styleUrls: ['./claims.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClaimsComponent implements OnInit {
+export class ClaimsComponent implements OnInit, OnDestroy {
+
+  private static readonly POOLING_INTERVAL = 3000;
 
   public columns: Column[] = [];
 
@@ -36,6 +48,8 @@ export class ClaimsComponent implements OnInit {
   @ViewChild('stateTemplate')
   private stateTemplate!: TemplateRef<any>;
 
+  private poolingSubscription: Subscription | null = null;
+
   constructor(
     private claimsService: ClaimsService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -52,6 +66,11 @@ export class ClaimsComponent implements OnInit {
       new Column('state', 'Статус заявки', this.stateTemplate),
     ];
     this.createPaginatorSource();
+    this.startPooling();
+  }
+
+  public ngOnDestroy(): void {
+    this.stopPooling();
   }
 
   public setFilters(filters: ClaimsFilters): void {
@@ -66,6 +85,18 @@ export class ClaimsComponent implements OnInit {
     }
 
     return '';
+  }
+
+  private stopPooling(): void {
+    if (this.poolingSubscription) {
+      this.poolingSubscription.unsubscribe();
+      this.poolingSubscription = null;
+    }
+  }
+
+  private startPooling(): void {
+    this.poolingSubscription = timer(0, ClaimsComponent.POOLING_INTERVAL)
+        .subscribe(() => this.tableComponent.loadList(false));
   }
 
   private createPaginatorSource(): void {

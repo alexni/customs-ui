@@ -1,9 +1,16 @@
+$height: 250px;
+
+:host {
+  display: block;
+  height: $height;
+}
+
 .image {
   display: block;
+  height: $height;
   padding: 0 5px;
 
   img {
-    max-width: 250px;
-    max-height: 250px;
+    height: $height;
   }
 }

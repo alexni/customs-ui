@@ -10,8 +10,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { PageEvent } from '@angular/material';
+import { isEqual } from 'lodash';
 import { Subscription } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { filter, finalize } from 'rxjs/operators';
 import { PaginatorComponent } from 'src/app/ui/paginator/paginator.component';
 import { TableData } from 'src/app/ui/table-with-paginator/table-data.interface';
 import { TableDataSource } from 'src/app/ui/table-with-paginator/table-data.source';
@@ -70,13 +71,13 @@ export class TableWithPaginatorComponent<T> implements OnChanges {
     this.pageSize = event.pageSize;
     this.page = event.pageIndex + 1;
 
-    this.loadList();
+    this.loadList(true);
   }
 
   public reloadList(): void {
     this.page = 1;
     this.paginatorComponent.resetPage();
-    this.loadList();
+    this.loadList(true);
   }
 
   public replaceEntity(targetEntity: T, predicate: (targetEntity: T, entity: T) => boolean): boolean {
@@ -94,13 +95,15 @@ export class TableWithPaginatorComponent<T> implements OnChanges {
     return false;
   }
 
-  private loadList(): void {
+  public loadList(displayLoading: boolean): void {
     this.loadListUnsubscribe();
-    this.setLoading(true);
+    displayLoading && this.setLoading(true);
+
     this.loadListSubscription = this.dataSource
       .loadList((this.page - 1) * this.pageSize, this.pageSize)
       .pipe(
-        finalize(() => this.setLoading(false)),
+        finalize(() => displayLoading && this.setLoading(false)),
+        filter(list => !isEqual(list, this.list)),
       )
       .subscribe(list => {
         this.list = list;

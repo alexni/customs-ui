@@ -1,3 +1,23 @@
+<ng-template #baseButtonsTemplate>
+  <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!isDeclarantActive"
+      (click)="success()"
+  >
+    завершить
+  </button>
+
+  <button
+      mat-raised-button
+      color="warn"
+      [disabled]="!isDeclarantActive"
+      (click)="reject()"
+  >
+    отвергнуть
+  </button>
+</ng-template>
+
 <header [ngSwitch]="claim.state">
   <div class="states">
     <ng-container *ngSwitchCase="CLAIM_STATES_ENUM.START">
@@ -21,23 +41,8 @@
           на доработку
         </button>
 
-        <button
-            mat-raised-button
-            color="primary"
-            [disabled]="!isDeclarantActive"
-            (click)="success()"
-        >
-          завершить
-        </button>
+        <ng-container [ngTemplateOutlet]="baseButtonsTemplate"></ng-container>
 
-        <button
-            mat-raised-button
-            color="warn"
-            [disabled]="!isDeclarantActive"
-            (click)="reject()"
-        >
-          отвергнуть
-        </button>
       </ng-template>
     </ng-container>
 
@@ -57,13 +62,15 @@
       Заяка завершена.
     </div>
 
-    <div
-        *ngSwitchCase="CLAIM_STATES_ENUM.ERROR"
-        class="message error"
-    >
-      <mat-icon class="icon">feedback</mat-icon>
-      Заяка на доработке.
-    </div>
+    <ng-container *ngSwitchCase="CLAIM_STATES_ENUM.ERROR">
+      <div class="message error">
+        <mat-icon class="icon">feedback</mat-icon>
+        Заяка на доработке.
+      </div>
+
+      <ng-container [ngTemplateOutlet]="baseButtonsTemplate"></ng-container>
+    </ng-container>
+
   </div>
 
   <div class="declarant-state">
@@ -90,7 +97,10 @@
         Виды операций:
       </div>
       <div class="value">
-        <div class="service-type" *ngFor="let serviceType of claim.serviceTypes;">
+        <div
+            class="service-type"
+            *ngFor="let serviceType of claim.serviceTypes;"
+        >
           <dc-claim-service-type [serviceType]="serviceType"></dc-claim-service-type>
         </div>
       </div>

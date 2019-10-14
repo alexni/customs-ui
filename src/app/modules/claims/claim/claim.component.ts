@@ -15,6 +15,7 @@ import { ClaimStatesEnum } from 'src/app/modules/claims/enums/claim-states.enum'
 import { DeclarantStatesEnum } from 'src/app/modules/claims/enums/declarant-states.enum';
 import { Claim } from 'src/app/modules/claims/models/claim';
 import { Declarant } from 'src/app/modules/claims/models/declarant';
+import { IdentityService } from 'src/app/modules/users/identity.service';
 
 @Component({
   selector: 'dc-claim',
@@ -33,7 +34,7 @@ export class ClaimComponent implements OnChanges {
   public hasBrokerActivityInChat!: boolean;
 
   @Output()
-  public readonly stateChanged = new EventEmitter<void>();
+  public readonly claimChanged = new EventEmitter<Claim>();
 
   public loading = false;
 
@@ -44,6 +45,7 @@ export class ClaimComponent implements OnChanges {
   constructor(
     private claimsService: ClaimsService,
     private changeDetectorRef: ChangeDetectorRef,
+    private identityService: IdentityService,
   ) {
   }
 
@@ -101,8 +103,8 @@ export class ClaimComponent implements OnChanges {
       )
       .subscribe(() => {
         this.claim.state = state;
-        this.changeDetectorRef.markForCheck();
-        this.stateChanged.emit();
+        this.claim.managerIds.push(this.identityService.getCurrentUser()!.id);
+        this.claimChanged.emit(this.claim);
       });
   }
 

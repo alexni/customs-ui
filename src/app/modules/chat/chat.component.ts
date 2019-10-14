@@ -116,10 +116,7 @@ export class ChatComponent implements OnChanges, OnDestroy {
       .subscribe(list => {
         this.messagesList = list;
         this.changeDetectorRef.markForCheck();
-
-        if (!isLazy) {
-          defer(() => this.goToLastMessage());
-        }
+        defer(() => this.goToLastMessage());
       });
     this.subscriptions.add(loadQueueSubscription);
   }
