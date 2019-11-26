@@ -17,6 +17,8 @@ import { SelectControlModule } from 'src/app/ui/form-controls/select-control/sel
 import { TextControlModule } from 'src/app/ui/form-controls/text-control/text-control.module';
 import { FormFieldsModule } from 'src/app/ui/form-fields/form-fields.module';
 import { LoaderWithBackdropModule } from 'src/app/ui/loader-with-backdrop/loader-with-backdrop.module';
+import { PluralsModule } from 'src/app/ui/plurals/plurals.module';
+import { PluralsPipe } from 'src/app/ui/plurals/plurals.pipe';
 import { TableWithPaginatorModule } from 'src/app/ui/table-with-paginator/table-with-paginator.module';
 
 @NgModule({
@@ -34,11 +36,13 @@ import { TableWithPaginatorModule } from 'src/app/ui/table-with-paginator/table-
     FormsModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+    PluralsModule,
   ],
 
   providers: [
     ClaimsModelsFactory,
     ClaimsService,
+    PluralsPipe,
   ],
 
   declarations: [

@@ -8,10 +8,13 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { Subscription, timer } from 'rxjs';
+import { Subject, Subscription, timer } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ClaimsFilters } from 'src/app/modules/claims/claims-filters/claims.filters';
 import { ClaimsService } from 'src/app/modules/claims/claims.service';
 import { Claim } from 'src/app/modules/claims/models/claim';
+import { TitleService } from 'src/app/ui/common/services/title.service';
+import { PluralsPipe } from 'src/app/ui/plurals/plurals.pipe';
 import { TableDataSource } from 'src/app/ui/table-with-paginator/table-data.source';
 import { TableWithPaginatorComponent } from 'src/app/ui/table-with-paginator/table-with-paginator.component';
 import { Column } from 'src/app/ui/table/column';
@@ -25,7 +28,7 @@ import { TrClassNameFn } from 'src/app/ui/table/tr-class-name.function';
 })
 export class ClaimsComponent implements OnInit, OnDestroy {
 
-  private static readonly POOLING_INTERVAL = 30000;
+  private static readonly POOLING_INTERVAL = 10000;
 
   public columns: Column[] = [];
 
@@ -50,8 +53,14 @@ export class ClaimsComponent implements OnInit, OnDestroy {
 
   private poolingSubscription: Subscription | null = null;
 
+  private countNewMessages = 0;
+
+  private destroy = new Subject<void>();
+
   constructor(
     private claimsService: ClaimsService,
+    private titleService: TitleService,
+    private pluralsPipe: PluralsPipe,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
   }
@@ -67,10 +76,14 @@ export class ClaimsComponent implements OnInit, OnDestroy {
     ];
     this.createPaginatorSource();
     this.startPooling();
+    this.refreshCountNewMessages();
   }
 
   public ngOnDestroy(): void {
     this.stopPooling();
+    this.titleService.clearDynamicTitle();
+    this.destroy.next();
+    this.destroy.complete();
   }
 
   public setFilters(filters: ClaimsFilters): void {
@@ -85,7 +98,7 @@ export class ClaimsComponent implements OnInit, OnDestroy {
     }
 
     return '';
-  }
+  };
 
   private stopPooling(): void {
     if (this.poolingSubscription) {
@@ -96,7 +109,10 @@ export class ClaimsComponent implements OnInit, OnDestroy {
 
   private startPooling(): void {
     this.poolingSubscription = timer(ClaimsComponent.POOLING_INTERVAL, ClaimsComponent.POOLING_INTERVAL)
-        .subscribe(() => this.tableComponent.loadList(false));
+      .subscribe(() => {
+        this.tableComponent.loadList(false);
+        this.refreshCountNewMessages();
+      });
   }
 
   private createPaginatorSource(): void {
@@ -104,6 +120,30 @@ export class ClaimsComponent implements OnInit, OnDestroy {
       .claimsService
       .loadClaimsList(offset, limit, this.filters.query, this.filters.managerId, this.filters.state),
     );
+  }
+
+  private refreshCountNewMessages(): void {
+    this
+      .claimsService
+      .getCountMessagesInClaims()
+      .pipe(
+        takeUntil(this.destroy),
+      )
+      .subscribe(countNewMessages => {
+        this.countNewMessages = countNewMessages;
+        this.refreshTitle();
+      });
+  }
+
+  private refreshTitle(): void {
+    const title = this.titleService.getTitle();
+
+    if (this.countNewMessages > 0) {
+      const message = `+${this.pluralsPipe.transform(this.countNewMessages, 'сообщений', 'сообщение', 'сообщения')}`;
+      this.titleService.setDynamicTitle(`${ title } (${ message })`);
+    } else {
+      this.titleService.clearDynamicTitle();
+    }
   }
 
 }

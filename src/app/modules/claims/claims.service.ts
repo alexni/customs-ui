@@ -119,4 +119,12 @@ export class ClaimsService {
       );
   }
 
+  public getCountMessagesInClaims(): Observable<number> {
+    return this
+      .loadClaimsList(0, 1000)
+      .pipe(
+        map(list => list.items.filter(claim => claim.isHaveNewMessage).length),
+      );
+  }
+
 }
